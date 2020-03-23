@@ -5,7 +5,9 @@ const Logo = require('../assets/img/gardenerd_logo_200x200.png')
 
 const useStyles = makeStyles({
   headerSection: {
-    backgroundColor: '#FFFAFA'
+    backgroundColor: '#F5F5F5',
+    paddingLeft: 10,
+    paddingRight: 10,
   }
 })
 
