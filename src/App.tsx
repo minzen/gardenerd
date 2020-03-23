@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import React from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css'
@@ -10,6 +11,7 @@ import GardenView from './components/GardenView'
 import Header from './components/Header'
 import User from './components/User'
 import Info from './components/Info'
+import SignInSide from './components/Signin'
 
 const useStyles = makeStyles({
   menuBar: {
@@ -69,6 +71,12 @@ const App = () => {
                   User Profile
                 </Link>
               </Grid>
+              <Grid item className={classes.menuItemWithPadding}>
+               <LockOpenOutlinedIcon />
+              </Grid>
+              <Grid item>
+                <Link to="/login" className={classes.menuItem}>Login</Link>
+              </Grid>
             </Grid>
           </nav>
         </Container>
@@ -81,6 +89,9 @@ const App = () => {
           </Route>
           <Route path='/user'>
             <User />
+          </Route>
+          <Route path="/login">
+            <SignInSide />
           </Route>
           <Route path='/'>
             <GardenView />
