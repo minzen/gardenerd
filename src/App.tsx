@@ -1,13 +1,15 @@
+import { Container, Grid } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import React from 'react'
-import Info from './components/Info'
-import User from './components/User'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import './App.css'
 import GardenView from './components/GardenView'
 import Header from './components/Header'
-import { Container } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import './App.css'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-
+import User from './components/User'
+import Info from './components/Info'
 
 const useStyles = makeStyles({
   menuBar: {
@@ -22,9 +24,13 @@ const useStyles = makeStyles({
     borderLeftWidth: 0,
     borderRightWidth: 0
   },
+  menuItemWithPadding: {
+    color: '#2F4F4F',
+    paddingLeft: 10,
+    textDecoration: 'none'
+  },
   menuItem: {
     color: '#2F4F4F',
-    padding: 12,
     textDecoration: 'none'
   }
 })
@@ -37,11 +43,34 @@ const App = () => {
       <div>
         <Header />
         <Container maxWidth='xl'>
-        <nav className={classes.menuBar}>
-              <Link to='/' className={classes.menuItem}>Home</Link>
-              <Link to='/info' className={classes.menuItem}>Info</Link>
-              <Link to='/user' className={classes.menuItem}>User Profile</Link>
-        </nav>
+          <nav className={classes.menuBar}>
+            <Grid container direction='row' alignItems='center'>
+              <Grid item className={classes.menuItemWithPadding}>
+                <HomeOutlinedIcon />
+              </Grid>
+              <Grid item>
+                <Link to='/' className={classes.menuItem}>
+                  Home
+                </Link>
+              </Grid>
+              <Grid item className={classes.menuItemWithPadding}>
+                <InfoOutlinedIcon />
+              </Grid>
+              <Grid item>
+                <Link to='/info' className={classes.menuItem}>
+                  Info
+                </Link>
+              </Grid>
+              <Grid item className={classes.menuItemWithPadding}>
+              <PersonOutlineOutlinedIcon />
+              </Grid>
+              <Grid item>
+                <Link to='/user' className={classes.menuItem}>
+                  User Profile
+                </Link>
+              </Grid>
+            </Grid>
+          </nav>
         </Container>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -59,7 +88,6 @@ const App = () => {
         </Switch>
       </div>
     </Router>
-
   )
 }
 
