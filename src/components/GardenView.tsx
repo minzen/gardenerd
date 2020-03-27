@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { GardenItem } from './GardenItem'
 
 const useStyles = makeStyles({
   body: {
@@ -14,7 +15,12 @@ const useStyles = makeStyles({
   }
 })
 
-const GardenView = () => {
+interface GardenViewProps {
+  gardenItems: any
+  setGardenItems: Function
+}
+
+const GardenView = (props: GardenViewProps) => {
   const classes = useStyles()
 
   return (
@@ -24,11 +30,15 @@ const GardenView = () => {
           <Typography variant='h3' className={classes.header}>
             My Garden
           </Typography>
-          <Typography variant="body1" className={classes.body}>
-            Here you manage your garden layout(s) and add information about your plants, create notifications for todos you find important etc. 
+          <Typography variant='body1' className={classes.body}>
+            Here you manage your garden layout(s) and add information about your
+            plants, create notifications for todos you find important etc.
           </Typography>
         </Grid>
       </Grid>
+      {props.gardenItems.map((item: any) => 
+          <GardenItem name={item.name} description={item.description} />      
+      )}
     </Container>
   )
 }

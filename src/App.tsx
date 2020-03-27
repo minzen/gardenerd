@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
-import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
-import React from 'react'
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined'
+import React, {useState} from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css'
 import GardenView from './components/GardenView'
@@ -38,7 +38,12 @@ const useStyles = makeStyles({
 })
 
 const App = () => {
+  const sampleItems = [
+    {name: "Tomato", description: "Tomato description"},
+    {name: "Cucumber", description: "Tommy"}
+  ]
   const classes = useStyles()
+  const [gardenItems, setGardenItems] = useState(sampleItems)
 
   return (
     <Router>
@@ -64,7 +69,7 @@ const App = () => {
                 </Link>
               </Grid>
               <Grid item className={classes.menuItemWithPadding}>
-              <PersonOutlineOutlinedIcon />
+                <PersonOutlineOutlinedIcon />
               </Grid>
               <Grid item>
                 <Link to='/user' className={classes.menuItem}>
@@ -72,10 +77,12 @@ const App = () => {
                 </Link>
               </Grid>
               <Grid item className={classes.menuItemWithPadding}>
-               <LockOpenOutlinedIcon />
+                <LockOpenOutlinedIcon />
               </Grid>
               <Grid item>
-                <Link to="/login" className={classes.menuItem}>Login</Link>
+                <Link to='/login' className={classes.menuItem}>
+                  Login
+                </Link>
               </Grid>
             </Grid>
           </nav>
@@ -90,11 +97,11 @@ const App = () => {
           <Route path='/user'>
             <User />
           </Route>
-          <Route path="/login">
+          <Route path='/login'>
             <SignInSide />
           </Route>
           <Route path='/'>
-            <GardenView />
+            <GardenView gardenItems={gardenItems} setGardenItems={setGardenItems} />
           </Route>
         </Switch>
       </div>
