@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
   Card,
   CardContent,
@@ -7,6 +7,7 @@ import {
   Button
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import GardenItemForm from '../forms/GardenItemForm'
 
 interface GardenItemProps {
   name: string
@@ -33,12 +34,15 @@ const useStyles = makeStyles({
 
 export const GardenItem = (props: GardenItemProps) => {
   const classes = useStyles()
+  const [title, setTitle] = useState(props.name)
+  const [description, setDescription] = useState(props.description)
 
   const handleEditItem = () => {
     console.log('Edit clicked on item', props.name)
   }
 
   return (
+    <>
     <Card className={classes.root} variant='outlined'>
       <CardContent>
         <Typography
@@ -46,10 +50,10 @@ export const GardenItem = (props: GardenItemProps) => {
           color='textSecondary'
           gutterBottom
         >
-          {props.name}
+          {title}
         </Typography>
         <Typography variant='h5' component='h2'>
-          {props.description}
+          {description}
         </Typography>
       </CardContent>
       <CardActions>
@@ -58,5 +62,8 @@ export const GardenItem = (props: GardenItemProps) => {
         </Button>
       </CardActions>
     </Card>
+
+    <GardenItemForm name={title} description={description} plantationDate={'2020-03-28'} setName={setTitle} setDescription={setDescription} />
+    </>
   )
 }

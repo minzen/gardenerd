@@ -7,11 +7,11 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined'
 import React, {useState} from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css'
-import GardenView from './components/GardenView'
-import Header from './components/Header'
-import User from './components/User'
-import Info from './components/Info'
-import SignInSide from './components/Signin'
+import GardenView from './frontend/components/GardenView'
+import Header from './frontend/components/Header'
+import User from './frontend/components/User'
+import Info from './frontend/components/Info'
+import SignInSide from './frontend/components/Signin'
 
 const useStyles = makeStyles({
   menuBar: {
