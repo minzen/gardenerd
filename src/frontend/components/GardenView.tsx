@@ -37,7 +37,7 @@ const GardenView = (props: GardenViewProps) => {
         </Grid>
       </Grid>
       {props.gardenItems.map((item: any) => 
-          <GardenItem name={item.name} description={item.description} />      
+          <GardenItem key={item.name} name={item.name} description={item.description} />      
       )}
     </Container>
   )
