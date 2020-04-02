@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { FirebaseContext } from './Firebase'
 
 const useStyles = makeStyles({
   body: {
@@ -35,6 +36,15 @@ const Info = () => {
           <Typography variant='body1' className={classes.body}>
             You will need to register a user account to be able to start using
             the service.
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+        <Typography variant='body1' className={classes.body}>
+          <FirebaseContext.Consumer>
+            {firebase => {
+              return <div>Status DB: OK</div>
+            }}
+          </FirebaseContext.Consumer>
           </Typography>
         </Grid>
       </Grid>

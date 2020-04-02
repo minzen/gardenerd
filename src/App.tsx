@@ -11,7 +11,7 @@ import GardenView from './frontend/components/GardenView'
 import Header from './frontend/components/Header'
 import User from './frontend/components/User'
 import Info from './frontend/components/Info'
-import SignInSide from './frontend/components/Signin'
+import SignIn from './frontend/components/Signin'
 
 const useStyles = makeStyles({
   menuBar: {
@@ -91,15 +91,9 @@ const App = () => {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path='/info'>
-            <Info />
-          </Route>
-          <Route path='/user'>
-            <User />
-          </Route>
-          <Route path='/login'>
-            <SignInSide />
-          </Route>
+          <Route path='/info' component={Info} />
+          <Route path='/user' component={User}/ >
+          <Route path='/login' component={SignIn} />
           <Route path='/'>
             <GardenView gardenItems={gardenItems} setGardenItems={setGardenItems} />
           </Route>
