@@ -4,7 +4,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css'
 import GardenView from './frontend/components/GardenView'
@@ -12,6 +12,7 @@ import Header from './frontend/components/Header'
 import User from './frontend/components/User'
 import Info from './frontend/components/Info'
 import SignIn from './frontend/components/Signin'
+import { FirebaseContext } from './frontend/components/Firebase'
 
 const useStyles = makeStyles({
   menuBar: {
@@ -34,13 +35,18 @@ const useStyles = makeStyles({
   menuItem: {
     color: '#2F4F4F',
     textDecoration: 'none'
+  },
+  menuItemStatus: {
+    marginLeft: 10,
+    textDecoration: 'underline',
+    color: '#2F4F4F'
   }
 })
 
 const App = () => {
   const sampleItems = [
-    {name: "Tomato", description: "Tomato description"},
-    {name: "Cucumber", description: "Tommy"}
+    { name: 'Tomato', description: 'Tomato description' },
+    { name: 'Cucumber', description: 'Tommy' }
   ]
   const classes = useStyles()
   const [gardenItems, setGardenItems] = useState(sampleItems)
@@ -84,6 +90,13 @@ const App = () => {
                   Login
                 </Link>
               </Grid>
+              <Grid item className={classes.menuItemStatus}>
+                <FirebaseContext.Consumer>
+                  {firebase => {
+                    return <div>Status DB: <strong>OK</strong></div>
+                  }}
+                </FirebaseContext.Consumer>
+              </Grid>
             </Grid>
           </nav>
         </Container>
@@ -92,10 +105,13 @@ const App = () => {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path='/info' component={Info} />
-          <Route path='/user' component={User}/ >
+          <Route path='/user' component={User} />
           <Route path='/login' component={SignIn} />
           <Route path='/'>
-            <GardenView gardenItems={gardenItems} setGardenItems={setGardenItems} />
+            <GardenView
+              gardenItems={gardenItems}
+              setGardenItems={setGardenItems}
+            />
           </Route>
         </Switch>
       </div>
