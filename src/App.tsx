@@ -12,6 +12,7 @@ import Header from './frontend/components/Header'
 import User from './frontend/components/User'
 import Info from './frontend/components/Info'
 import SignIn from './frontend/components/Signin'
+import SignUp from './frontend/components/Signup'
 import { FirebaseContext } from './frontend/components/Firebase'
 
 const useStyles = makeStyles({
@@ -25,28 +26,28 @@ const useStyles = makeStyles({
     borderBottomWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
-    borderRightWidth: 0
+    borderRightWidth: 0,
   },
   menuItemWithPadding: {
     color: '#2F4F4F',
     paddingLeft: 10,
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
   menuItem: {
     color: '#2F4F4F',
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
   menuItemStatus: {
     marginLeft: 10,
     textDecoration: 'underline',
-    color: '#2F4F4F'
-  }
+    color: '#2F4F4F',
+  },
 })
 
 const App = () => {
   const sampleItems = [
     { name: 'Tomato', description: 'Tomato description' },
-    { name: 'Cucumber', description: 'Tommy' }
+    { name: 'Cucumber', description: 'Tommy' },
   ]
   const classes = useStyles()
   const [gardenItems, setGardenItems] = useState(sampleItems)
@@ -90,10 +91,19 @@ const App = () => {
                   Login
                 </Link>
               </Grid>
+              <Grid item>
+                <Link to='/signup' className={classes.menuItemWithPadding}>
+                  Signup
+                </Link>
+              </Grid>
               <Grid item className={classes.menuItemStatus}>
                 <FirebaseContext.Consumer>
-                  {firebase => {
-                    return <div>Status DB: <strong>OK</strong></div>
+                  {(firebase) => {
+                    return (
+                      <div>
+                        Status DB: <strong>OK</strong>
+                      </div>
+                    )
                   }}
                 </FirebaseContext.Consumer>
               </Grid>
@@ -107,6 +117,7 @@ const App = () => {
           <Route path='/info' component={Info} />
           <Route path='/user' component={User} />
           <Route path='/login' component={SignIn} />
+          <Route path='/signup' component={SignUp} />
           <Route path='/'>
             <GardenView
               gardenItems={gardenItems}
