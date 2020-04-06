@@ -117,7 +117,11 @@ const App = () => {
           <Route path='/info' component={Info} />
           <Route path='/user' component={User} />
           <Route path='/login' component={SignIn} />
-          <Route path='/signup' component={SignUp} />
+          <Route path='/signup'>
+            <FirebaseContext.Consumer>
+              {(firebase) => <SignUp firebase={firebase} />}
+            </FirebaseContext.Consumer>
+          </Route>
           <Route path='/'>
             <GardenView
               gardenItems={gardenItems}

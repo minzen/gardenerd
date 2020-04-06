@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -18,7 +18,7 @@ function Copyright() {
     <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
       <Link color='inherit' href='https://material-ui.com/'>
-        Your Website
+        Gardenerd
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -46,8 +46,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function SignUp() {
+interface SignUpProps {
+  firebase: any
+}
+
+const SignUp = (props: SignUpProps) => {
   const classes = useStyles()
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+    console.log('handleSubmit, create user with the email', email)
+    props.firebase
+      .doCreateUserWithEmailAndPassword(email, password)
+      .then((authUser: any) => {
+        console.log(authUser)
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
+    event.preventDefault()
+  }
+
+  const handleChangeFirstName = (event: any) => {
+    console.log(event.target.value)
+    setFirstName(event.target.value)
+  }
+  const handleChangeLastName = (event: any) => {
+    console.log(event.target.value)
+    setLastName(event.target.value)
+  }
+  const handleChangeEmail = (event: any) => {
+    console.log(event.target.value)
+    setEmail(event.target.value)
+  }
+
+  const handleChangePassword = (event: any) => {
+    console.log(event.target.value)
+    setPassword(event.target.value)
+  }
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -71,6 +110,8 @@ export default function SignUp() {
                 id='firstName'
                 label='First Name'
                 autoFocus
+                value={firstName}
+                onChange={handleChangeFirstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -82,6 +123,8 @@ export default function SignUp() {
                 label='Last Name'
                 name='lastName'
                 autoComplete='lname'
+                value={lastName}
+                onChange={handleChangeLastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -93,6 +136,8 @@ export default function SignUp() {
                 label='Email Address'
                 name='email'
                 autoComplete='email'
+                value={email}
+                onChange={handleChangeEmail}
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,6 +150,8 @@ export default function SignUp() {
                 type='password'
                 id='password'
                 autoComplete='current-password'
+                value={password}
+                onChange={handleChangePassword}
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,6 +167,7 @@ export default function SignUp() {
             variant='contained'
             color='primary'
             className={classes.submit}
+            onClick={(event: any) => handleSubmit(event)}
           >
             Sign Up
           </Button>
@@ -138,3 +186,4 @@ export default function SignUp() {
     </Container>
   )
 }
+export default SignUp
