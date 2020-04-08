@@ -17,21 +17,22 @@ class Firebase {
     this.auth = app.auth()
   }
 
-  doCreateUserWithEmailAndPassword = (email: string, password: string) => {
-    this.auth.createUserWithEmailAndPassword(email, password)
+  doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
+    console.log("doCreateUserWithEmailAndPassword", email, password)
+    await this.auth.createUserWithEmailAndPassword(email, password)
   }
 
-  doSignInWithEmailAndPassword = (email: string, password: string) => {
-    this.auth.signInWithEmailAndPassword(email, password)
+  doSignInWithEmailAndPassword = async (email: string, password: string) => {
+    await this.auth.signInWithEmailAndPassword(email, password)
   }
 
-  doSignOut = () => {
-    this.auth.signOut()
+  doSignOut =  async () => {
+    await this.auth.signOut()
   }
-  doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email)
+  doPasswordReset = async (email: string) => await this.auth.sendPasswordResetEmail(email)
 
-  doPasswordUpdate = (password: string) => {
-    this.auth.currentUser ? this.auth.currentUser.updatePassword(password) : Promise.resolve()
+  doPasswordUpdate = async (password: string) => {
+    this.auth.currentUser ? await this.auth.currentUser.updatePassword(password) : Promise.resolve()
   }
 }
 export default Firebase

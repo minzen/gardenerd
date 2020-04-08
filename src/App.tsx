@@ -51,6 +51,7 @@ const App = () => {
   ]
   const classes = useStyles()
   const [gardenItems, setGardenItems] = useState(sampleItems)
+  const [authenticated, setAuthenticated] = useState(false)
 
   return (
     <Router>

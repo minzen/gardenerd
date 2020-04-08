@@ -12,6 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
 
 function Copyright() {
   return (
@@ -56,18 +61,25 @@ const SignUp = (props: SignUpProps) => {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [accountCreatedDialogOpen, setAccountCreatedDialogOpen] = useState(false)
 
   const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+    event.preventDefault()
     console.log('handleSubmit, create user with the email', email)
+    console.log('firebase', props.firebase)
     props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then((authUser: any) => {
         console.log(authUser)
+        setAccountCreatedDialogOpen(true)
       })
       .catch((error: any) => {
         console.log(error)
       })
-    event.preventDefault()
+  }
+
+  const handleCloseDialog = () => {
+    setAccountCreatedDialogOpen(false)
   }
 
   const handleChangeFirstName = (event: any) => {
@@ -183,6 +195,27 @@ const SignUp = (props: SignUpProps) => {
       <Box mt={5}>
         <Copyright />
       </Box>
+
+      <Dialog
+        open={accountCreatedDialogOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"User Account created"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            The user account with the provided email address was created successfully and 
+            you now may log in with your credentials.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary" autoFocus>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </Container>
   )
 }
