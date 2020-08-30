@@ -18,11 +18,11 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 
-function Copyright() {
+const Copyright = () => {
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
+    <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color='inherit' href='https://material-ui.com/'>
+      <Link color="inherit" href="https://material-ui.com/">
         Gardenerd
       </Link>{' '}
       {new Date().getFullYear()}
@@ -36,19 +36,19 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    margin: theme.spacing(3, 0, 2)
+  }
 }))
 
 interface SignUpProps {
@@ -61,7 +61,9 @@ const SignUp = (props: SignUpProps) => {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [accountCreatedDialogOpen, setAccountCreatedDialogOpen] = useState(false)
+  const [accountCreatedDialogOpen, setAccountCreatedDialogOpen] = useState(
+    false
+  )
 
   const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -101,26 +103,26 @@ const SignUp = (props: SignUpProps) => {
   }
 
   return (
-    <Container component='main' maxWidth='xs'>
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component="h1" variant="h5">
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete='fname'
-                name='firstName'
-                variant='outlined'
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
                 required
                 fullWidth
-                id='firstName'
-                label='First Name'
+                id="firstName"
+                label="First Name"
                 autoFocus
                 value={firstName}
                 onChange={handleChangeFirstName}
@@ -128,64 +130,64 @@ const SignUp = (props: SignUpProps) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                variant='outlined'
+                variant="outlined"
                 required
                 fullWidth
-                id='lastName'
-                label='Last Name'
-                name='lastName'
-                autoComplete='lname'
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
                 value={lastName}
                 onChange={handleChangeLastName}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant='outlined'
+                variant="outlined"
                 required
                 fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoComplete='email'
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
                 value={email}
                 onChange={handleChangeEmail}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant='outlined'
+                variant="outlined"
                 required
                 fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-                autoComplete='current-password'
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={handleChangePassword}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value='allowExtraEmails' color='primary' />}
-                label='I want to receive inspiration, marketing promotions and updates via email.'
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
           </Grid>
           <Button
-            type='submit'
+            type="submit"
             fullWidth
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             className={classes.submit}
             onClick={(event: any) => handleSubmit(event)}
           >
             Sign Up
           </Button>
-          <Grid container justify='flex-end'>
+          <Grid container justify="flex-end">
             <Grid item>
-              <Link href='#' variant='body2'>
+              <Link href="#" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -202,11 +204,13 @@ const SignUp = (props: SignUpProps) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"User Account created"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          {'User Account created'}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            The user account with the provided email address was created successfully and 
-            you now may log in with your credentials.
+            The user account with the provided email address was created
+            successfully and you now may log in with your credentials.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -215,7 +219,6 @@ const SignUp = (props: SignUpProps) => {
           </Button>
         </DialogActions>
       </Dialog>
-
     </Container>
   )
 }

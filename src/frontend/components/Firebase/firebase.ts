@@ -7,7 +7,7 @@ const config = {
   databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 }
 
 class Firebase {
@@ -17,8 +17,11 @@ class Firebase {
     this.auth = app.auth()
   }
 
-  doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
-    console.log("doCreateUserWithEmailAndPassword", email, password)
+  doCreateUserWithEmailAndPassword = async (
+    email: string,
+    password: string
+  ) => {
+    console.log('doCreateUserWithEmailAndPassword', email, password)
     await this.auth.createUserWithEmailAndPassword(email, password)
   }
 
@@ -26,13 +29,16 @@ class Firebase {
     await this.auth.signInWithEmailAndPassword(email, password)
   }
 
-  doSignOut =  async () => {
+  doSignOut = async () => {
     await this.auth.signOut()
   }
-  doPasswordReset = async (email: string) => await this.auth.sendPasswordResetEmail(email)
+  doPasswordReset = async (email: string) =>
+    await this.auth.sendPasswordResetEmail(email)
 
   doPasswordUpdate = async (password: string) => {
-    this.auth.currentUser ? await this.auth.currentUser.updatePassword(password) : Promise.resolve()
+    this.auth.currentUser
+      ? await this.auth.currentUser.updatePassword(password)
+      : Promise.resolve()
   }
 }
 export default Firebase

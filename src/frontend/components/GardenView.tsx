@@ -24,21 +24,25 @@ const GardenView = (props: GardenViewProps) => {
   const classes = useStyles()
 
   return (
-    <Container maxWidth='xl'>
-      <Grid container direction='column' justify='center'>
+    <Container maxWidth="xl">
+      <Grid container direction="column" justify="center">
         <Grid item xs={12}>
-          <Typography variant='h3' className={classes.header}>
+          <Typography variant="h3" className={classes.header}>
             My Garden
           </Typography>
-          <Typography variant='body1' className={classes.body}>
+          <Typography variant="body1" className={classes.body}>
             Here you manage your garden layout(s) and add information about your
             plants, create notifications for todos you find important etc.
           </Typography>
         </Grid>
       </Grid>
-      {props.gardenItems.map((item: any) => 
-          <GardenItem key={item.name} name={item.name} description={item.description} />      
-      )}
+      {props.gardenItems.map((item: any) => (
+        <GardenItem
+          key={item.name}
+          name={item.name}
+          description={item.description}
+        />
+      ))}
     </Container>
   )
 }

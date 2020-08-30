@@ -18,13 +18,13 @@ const Info = () => {
   const classes = useStyles()
 
   return (
-    <Container maxWidth='xl'>
-      <Grid container direction='column' justify='center'>
+    <Container maxWidth="xl">
+      <Grid container direction="column" justify="center">
         <Grid item xs={12}>
-          <Typography variant='h3' className={classes.header}>
+          <Typography variant="h3" className={classes.header}>
             About the app
           </Typography>
-          <Typography variant='body1' className={classes.body}>
+          <Typography variant="body1" className={classes.body}>
             Gardenerd is an app for hobby gardeners who want to manage garden
             plants and their specific information by using a web browser. One
             may add notes specific to a plant, e.g. information about the
@@ -32,7 +32,7 @@ const Info = () => {
             also planned that it is possible to create and manage layouts so you
             can have the same setup as in your own garden/greenhouse.
           </Typography>
-          <Typography variant='body1' className={classes.body}>
+          <Typography variant="body1" className={classes.body}>
             You will need to register a user account to be able to start using
             the service.
           </Typography>

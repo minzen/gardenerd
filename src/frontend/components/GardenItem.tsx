@@ -59,24 +59,24 @@ export const GardenItem = (props: GardenItemProps) => {
 
   return (
     <>
-      <Card className={classes.root} variant='outlined'>
+      <Card className={classes.root} variant="outlined">
         <CardContent>
           <Typography
             className={classes.title}
-            color='textSecondary'
+            color="textSecondary"
             gutterBottom
           >
             {title}
           </Typography>
-          <Typography variant='h5' component='h2'>
+          <Typography variant="h5" component="h2">
             {description}
           </Typography>
         </CardContent>
         <CardActions>
           <Button
-            size='small'
-            variant='contained'
-            color='primary'
+            size="small"
+            variant="contained"
+            color="primary"
             onClick={handleEditItem}
           >
             Edit plant information

@@ -26,28 +26,28 @@ const useStyles = makeStyles({
     borderBottomWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
-    borderRightWidth: 0,
+    borderRightWidth: 0
   },
   menuItemWithPadding: {
     color: '#2F4F4F',
     paddingLeft: 10,
-    textDecoration: 'none',
+    textDecoration: 'none'
   },
   menuItem: {
     color: '#2F4F4F',
-    textDecoration: 'none',
+    textDecoration: 'none'
   },
   menuItemStatus: {
     marginLeft: 10,
     textDecoration: 'underline',
-    color: '#2F4F4F',
-  },
+    color: '#2F4F4F'
+  }
 })
 
 const App = () => {
   const sampleItems = [
     { name: 'Tomato', description: 'Tomato description' },
-    { name: 'Cucumber', description: 'Tommy' },
+    { name: 'Cucumber', description: 'Tommy' }
   ]
   const classes = useStyles()
   const [gardenItems, setGardenItems] = useState(sampleItems)
@@ -57,14 +57,14 @@ const App = () => {
     <Router>
       <div>
         <Header />
-        <Container maxWidth='xl'>
+        <Container maxWidth="xl">
           <nav className={classes.menuBar}>
-            <Grid container direction='row' alignItems='center'>
+            <Grid container direction="row" alignItems="center">
               <Grid item className={classes.menuItemWithPadding}>
                 <HomeOutlinedIcon />
               </Grid>
               <Grid item>
-                <Link to='/' className={classes.menuItem}>
+                <Link to="/" className={classes.menuItem}>
                   Home
                 </Link>
               </Grid>
@@ -72,7 +72,7 @@ const App = () => {
                 <InfoOutlinedIcon />
               </Grid>
               <Grid item>
-                <Link to='/info' className={classes.menuItem}>
+                <Link to="/info" className={classes.menuItem}>
                   Info
                 </Link>
               </Grid>
@@ -80,7 +80,7 @@ const App = () => {
                 <PersonOutlineOutlinedIcon />
               </Grid>
               <Grid item>
-                <Link to='/user' className={classes.menuItem}>
+                <Link to="/user" className={classes.menuItem}>
                   User Profile
                 </Link>
               </Grid>
@@ -88,12 +88,12 @@ const App = () => {
                 <LockOpenOutlinedIcon />
               </Grid>
               <Grid item>
-                <Link to='/login' className={classes.menuItem}>
+                <Link to="/login" className={classes.menuItem}>
                   Login
                 </Link>
               </Grid>
               <Grid item>
-                <Link to='/signup' className={classes.menuItemWithPadding}>
+                <Link to="/signup" className={classes.menuItemWithPadding}>
                   Signup
                 </Link>
               </Grid>
@@ -115,15 +115,15 @@ const App = () => {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path='/info' component={Info} />
-          <Route path='/user' component={User} />
-          <Route path='/login' component={SignIn} />
-          <Route path='/signup'>
+          <Route path="/info" component={Info} />
+          <Route path="/user" component={User} />
+          <Route path="/login" component={SignIn} />
+          <Route path="/signup">
             <FirebaseContext.Consumer>
               {(firebase) => <SignUp firebase={firebase} />}
             </FirebaseContext.Consumer>
           </Route>
-          <Route path='/'>
+          <Route path="/">
             <GardenView
               gardenItems={gardenItems}
               setGardenItems={setGardenItems}

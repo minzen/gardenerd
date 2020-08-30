@@ -13,10 +13,10 @@ const useStyles = makeStyles({
 const User = () => {
   const classes = useStyles()
   return (
-    <Container maxWidth='xl'>
-      <Grid container direction='column' justify='center'>
+    <Container maxWidth="xl">
+      <Grid container direction="column" justify="center">
         <Grid item xs={12}>
-          <Typography variant='h3' className={classes.header}>
+          <Typography variant="h3" className={classes.header}>
             User Profile
           </Typography>
         </Grid>

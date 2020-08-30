@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   headerSection: {
     backgroundColor: '#F5F5F5',
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 10
   }
 })
 
@@ -15,10 +15,10 @@ const Header = () => {
   const classes = useStyles()
 
   return (
-    <Container maxWidth='xl'>
-      <Grid container direction='column' justify='center'>
+    <Container maxWidth="xl">
+      <Grid container direction="column" justify="center">
         <Grid item xs={12} className={classes.headerSection}>
-          <img src={Logo} alt='sitelogo' />
+          <img src={Logo} alt="sitelogo" />
         </Grid>
       </Grid>
     </Container>
