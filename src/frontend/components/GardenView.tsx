@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { GardenItem } from './GardenItem'
+import Copyright from './Copyright'
 
 const useStyles = makeStyles({
   body: {
@@ -43,6 +44,9 @@ const GardenView = (props: GardenViewProps) => {
           description={item.description}
         />
       ))}
+      <Grid item xs={12}>
+        <Copyright />
+      </Grid>
     </Container>
   )
 }

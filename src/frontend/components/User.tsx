@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import Copyright from './Copyright'
 
 const useStyles = makeStyles({
   header: {
@@ -19,6 +20,9 @@ const User = () => {
           <Typography variant="h3" className={classes.header}>
             User Profile
           </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Copyright />
         </Grid>
       </Grid>
     </Container>

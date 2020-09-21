@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import Copyright from './Copyright'
 
 const useStyles = makeStyles({
   body: {
@@ -37,6 +38,9 @@ const Info = () => {
             the service.
           </Typography>
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Copyright />
       </Grid>
     </Container>
   )

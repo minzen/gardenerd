@@ -26,7 +26,12 @@ class Firebase {
   }
 
   doSignInWithEmailAndPassword = async (email: string, password: string) => {
-    await this.auth.signInWithEmailAndPassword(email, password)
+    await this.auth
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => {
+        console.log(error.code)
+        console.log(error.message)
+      })
   }
 
   doSignOut = async () => {
