@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -47,8 +47,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function SignIn() {
+const SignIn = () => {
   const classes = useStyles()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleEmailChange = (event: any) => {
+    console.log(event.target.value)
+    setEmail(event.target.value)
+  }
+
+  const handlePasswordChange = (event: any) => {
+    console.log(event.target.value)
+    setPassword(event.target.value)
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    console.log('Submitting login', email, password)
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -73,6 +90,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleEmailChange}
             />
             <TextField
               variant="outlined"
@@ -84,6 +102,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handlePasswordChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -95,6 +114,7 @@ export default function SignIn() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={(event: any) => handleSubmit(event)}
             >
               Sign In
             </Button>
@@ -119,3 +139,4 @@ export default function SignIn() {
     </Grid>
   )
 }
+export default SignIn
