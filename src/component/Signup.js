@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -18,6 +18,8 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import Copyright from './Copyright'
+import { authContext } from '../provider/AuthProvider'
+import { withRouter } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,11 +41,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-interface SignUpProps {
-  firebase: any
-}
-
-const SignUp = (props: SignUpProps) => {
+const SignUp = (props) => {
+  const { handleSignup, inputs, setInputs, errors } = useContext(authContext)
   const classes = useStyles()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -53,39 +52,43 @@ const SignUp = (props: SignUpProps) => {
     false
   )
 
-  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+  console.log('persiö')
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
     console.log('handleSubmit, create user with the email', email)
-    console.log('firebase', props.firebase)
-    props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
-      .then((authUser: any) => {
-        console.log(authUser)
-        setAccountCreatedDialogOpen(true)
-      })
-      .catch((error: any) => {
-        console.log(error)
-      })
+    await handleSignup()
+    // props.history.push('/')
+
+    // props.firebase
+    //   .doCreateUserWithEmailAndPassword(email, password)
+    //   .then((authUser) => {
+    //     console.log(authUser)
+    //     setAccountCreatedDialogOpen(true)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   }
 
   const handleCloseDialog = () => {
     setAccountCreatedDialogOpen(false)
   }
 
-  const handleChangeFirstName = (event: any) => {
+  const handleChangeFirstName = (event) => {
     console.log(event.target.value)
     setFirstName(event.target.value)
   }
-  const handleChangeLastName = (event: any) => {
+  const handleChangeLastName = (event) => {
     console.log(event.target.value)
     setLastName(event.target.value)
   }
-  const handleChangeEmail = (event: any) => {
+  const handleChangeEmail = (event) => {
     console.log(event.target.value)
     setEmail(event.target.value)
   }
 
-  const handleChangePassword = (event: any) => {
+  const handleChangePassword = (event) => {
     console.log(event.target.value)
     setPassword(event.target.value)
   }
@@ -169,13 +172,13 @@ const SignUp = (props: SignUpProps) => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(event: any) => handleSubmit(event)}
+            onClick={(event) => handleSubmit(event)}
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -210,4 +213,4 @@ const SignUp = (props: SignUpProps) => {
     </Container>
   )
 }
-export default SignUp
+export default withRouter(SignUp)

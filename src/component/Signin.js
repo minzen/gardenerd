@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Copyright from './Copyright'
+import { authContext } from '../provider/AuthProvider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,22 +50,17 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
   const classes = useStyles()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { handleSignin, inputs, setInputs, errors } = useContext(authContext)
 
-  const handleEmailChange = (event: any) => {
-    console.log(event.target.value)
-    setEmail(event.target.value)
-  }
-
-  const handlePasswordChange = (event: any) => {
-    console.log(event.target.value)
-    setPassword(event.target.value)
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('Submitting login', email, password)
+    handleSignin()
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    console.log(inputs)
+    setInputs((prev) => ({ ...prev, [name]: value }))
   }
 
   return (
@@ -90,7 +86,8 @@ const SignIn = () => {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={handleEmailChange}
+              onChange={handleChange}
+              value={inputs.email}
             />
             <TextField
               variant="outlined"
@@ -102,7 +99,8 @@ const SignIn = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={handlePasswordChange}
+              onChange={handleChange}
+              value={inputs.password}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -114,7 +112,7 @@ const SignIn = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={(event: any) => handleSubmit(event)}
+              onClick={(event) => handleSubmit(event)}
             >
               Sign In
             </Button>
@@ -125,9 +123,18 @@ const SignIn = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs>
+                {errors.length > 0
+                  ? errors.map((error) => (
+                      <p style={{ color: 'red' }}>{error}</p>
+                    ))
+                  : null}
               </Grid>
             </Grid>
             <Box mt={5}>

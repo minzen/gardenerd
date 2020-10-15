@@ -7,13 +7,7 @@ import {
   Button
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import GardenItemForm from '../forms/GardenItemForm'
-
-interface GardenItemProps {
-  name: string
-  description: string
-  // todo Notifications/Reminders
-}
+import GardenItemForm from './forms/GardenItemForm'
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +26,7 @@ const useStyles = makeStyles({
   }
 })
 
-export const GardenItem = (props: GardenItemProps) => {
+export const GardenItem = (props) => {
   const classes = useStyles()
   const [title, setTitle] = useState(props.name)
   const [description, setDescription] = useState(props.description)

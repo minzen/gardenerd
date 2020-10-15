@@ -1,19 +1,19 @@
+import React, { useState, useContext } from 'react'
+import { authContext } from './provider/AuthProvider'
 import { Container, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined'
-import React, { useState } from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css'
-import GardenView from './frontend/components/GardenView'
-import Header from './frontend/components/Header'
-import User from './frontend/components/User'
-import Info from './frontend/components/Info'
-import SignIn from './frontend/components/Signin'
-import SignUp from './frontend/components/Signup'
-import { FirebaseContext } from './frontend/components/Firebase'
+import GardenView from './component/GardenView'
+import Header from './component/Header'
+import User from './component/User'
+import Info from './component/Info'
+import SignIn from './component/Signin'
+import SignUp from './component/Signup'
 
 const useStyles = makeStyles({
   menuBar: {
@@ -51,7 +51,10 @@ const App = () => {
   ]
   const classes = useStyles()
   const [gardenItems, setGardenItems] = useState(sampleItems)
-  const [authenticated, setAuthenticated] = useState(false)
+  const { handleSignup } = useContext(authContext)
+  console.log(handleSignup)
+  const { token } = useContext(authContext)
+  console.log(token)
 
   return (
     <Router>
@@ -97,17 +100,6 @@ const App = () => {
                   Signup
                 </Link>
               </Grid>
-              <Grid item className={classes.menuItemStatus}>
-                <FirebaseContext.Consumer>
-                  {(firebase) => {
-                    return (
-                      <div>
-                        Status DB: <strong>OK</strong>
-                      </div>
-                    )
-                  }}
-                </FirebaseContext.Consumer>
-              </Grid>
             </Grid>
           </nav>
         </Container>
@@ -115,20 +107,20 @@ const App = () => {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/info" component={Info} />
-          <Route path="/user" component={User} />
-          <Route path="/login" component={SignIn} />
-          <Route path="/signup">
-            <FirebaseContext.Consumer>
-              {(firebase) => <SignUp firebase={firebase} />}
-            </FirebaseContext.Consumer>
-          </Route>
-          <Route path="/">
-            <GardenView
+          <Route
+            exact
+            path="/"
+            render={(rProps) => (token === null ? <SignIn /> : <Info />)}
+          />
+          {/* <GardenView
               gardenItems={gardenItems}
               setGardenItems={setGardenItems}
             />
-          </Route>
+          </Route> */}
+          <Route exact path="/info" component={Info} />
+          <Route exact path="/user" component={User} />
+          <Route exact path="/login" component={SignIn} />
+          <Route exact path="/signup" component={SignUp} />
         </Switch>
       </div>
     </Router>

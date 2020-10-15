@@ -8,23 +8,15 @@ const useStyles = makeStyles({
   }
 })
 
-interface GardenItemFormProps {
-  name: string
-  description: string
-  plantationDate: string
-  setName: Function
-  setDescription: Function
-}
-
-const GardenItemForm = (props: GardenItemFormProps) => {
+const GardenItemForm = (props) => {
   const classes = useStyles()
 
-  const handleTitleChange = (event: any) => {
+  const handleTitleChange = (event) => {
     console.log(event.target.value)
     props.setName(event.target.value)
   }
 
-  const handleDescrChange = (event: any) => {
+  const handleDescrChange = (event) => {
     console.log(event.target.value)
     props.setDescription(event.target.value)
   }

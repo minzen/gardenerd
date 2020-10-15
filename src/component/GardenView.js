@@ -16,12 +16,7 @@ const useStyles = makeStyles({
   }
 })
 
-interface GardenViewProps {
-  gardenItems: any
-  setGardenItems: Function
-}
-
-const GardenView = (props: GardenViewProps) => {
+const GardenView = (props) => {
   const classes = useStyles()
 
   return (
@@ -37,7 +32,7 @@ const GardenView = (props: GardenViewProps) => {
           </Typography>
         </Grid>
       </Grid>
-      {props.gardenItems.map((item: any) => (
+      {props.gardenItems.map((item) => (
         <GardenItem
           key={item.name}
           name={item.name}
