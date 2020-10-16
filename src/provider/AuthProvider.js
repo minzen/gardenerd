@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
   const [inputs, setInputs] = useState({ email: '', password: '' })
   const [errors, setErrors] = useState([])
   const [token, setToken] = useState(null)
+  const [user, setUser] = useState(null)
 
   const handleSignup = () => {
     // middle man between firebase and signup
@@ -25,7 +26,13 @@ const AuthProvider = ({ children }) => {
 
   const handleSignin = () => {
     console.log('handleSignin!!!!')
-    authMethods.signin(inputs.email, inputs.password, setErrors, setToken)
+    authMethods.signin(
+      inputs.email,
+      inputs.password,
+      setErrors,
+      setToken,
+      setUser
+    )
     console.log(errors, token)
   }
 

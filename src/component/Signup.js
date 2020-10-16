@@ -52,23 +52,11 @@ const SignUp = (props) => {
     false
   )
 
-  console.log('persiö')
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     console.log('handleSubmit, create user with the email', email)
     await handleSignup()
-    // props.history.push('/')
-
-    // props.firebase
-    //   .doCreateUserWithEmailAndPassword(email, password)
-    //   .then((authUser) => {
-    //     console.log(authUser)
-    //     setAccountCreatedDialogOpen(true)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
+    props.history.push('/')
   }
 
   const handleCloseDialog = () => {
