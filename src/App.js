@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { authContext } from './provider/AuthProvider'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
 import GardenView from './component/GardenView'
 import Header from './component/Header'

@@ -19,7 +19,7 @@ export const authMethods = {
         setErrors((prev) => [...prev, err.message])
       })
   },
-  signin: (email, password, setErrors, setToken, setUser) => {
+  signin: (email, password, setErrors, setToken) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)

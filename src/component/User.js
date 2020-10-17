@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Copyright from './Copyright'
-import { authContext } from '../provider/AuthProvider'
 import firebase from 'firebase'
 import MenuItemsLoggedIn from './MenuItemsLoggedIn'
 
@@ -16,7 +15,6 @@ const useStyles = makeStyles({
 
 const User = () => {
   const classes = useStyles()
-  const { token } = useContext(authContext)
   const user = firebase.auth().currentUser
 
   if (user) {

@@ -44,18 +44,14 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = (props) => {
   const { handleSignup, inputs, setInputs, errors } = useContext(authContext)
   const classes = useStyles()
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [accountCreatedDialogOpen, setAccountCreatedDialogOpen] = useState(
     false
   )
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
     console.log('handleSubmit, create user with the email', email)
-    await handleSignup()
+    handleSignup()
     props.history.push('/')
   }
 
@@ -63,22 +59,10 @@ const SignUp = (props) => {
     setAccountCreatedDialogOpen(false)
   }
 
-  const handleChangeFirstName = (event) => {
-    console.log(event.target.value)
-    setFirstName(event.target.value)
-  }
-  const handleChangeLastName = (event) => {
-    console.log(event.target.value)
-    setLastName(event.target.value)
-  }
-  const handleChangeEmail = (event) => {
-    console.log(event.target.value)
-    setEmail(event.target.value)
-  }
-
-  const handleChangePassword = (event) => {
-    console.log(event.target.value)
-    setPassword(event.target.value)
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    console.log(inputs)
+    setInputs((prev) => ({ ...prev, [name]: value }))
   }
 
   return (
@@ -93,33 +77,6 @@ const SignUp = (props) => {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                value={firstName}
-                onChange={handleChangeFirstName}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                value={lastName}
-                onChange={handleChangeLastName}
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -129,8 +86,8 @@ const SignUp = (props) => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                value={email}
-                onChange={handleChangeEmail}
+                value={inputs.email}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -143,14 +100,8 @@ const SignUp = (props) => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                value={password}
-                onChange={handleChangePassword}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                value={inputs.password}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>

@@ -1,5 +1,4 @@
-import React, { Component, useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import React from 'react'
 import { Button } from '@material-ui/core'
 
 const Logout = (props) => {
