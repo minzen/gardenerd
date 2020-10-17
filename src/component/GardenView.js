@@ -3,6 +3,7 @@ import { Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { GardenItem } from './GardenItem'
 import Copyright from './Copyright'
+import MenuItemsLoggedIn from './MenuItemsLoggedIn'
 
 const useStyles = makeStyles({
   body: {
@@ -20,29 +21,33 @@ const GardenView = (props) => {
   const classes = useStyles()
 
   return (
-    <Container maxWidth="xl">
-      <Grid container direction="column" justify="center">
-        <Grid item xs={12}>
-          <Typography variant="h3" className={classes.header}>
-            My Garden
-          </Typography>
-          <Typography variant="body1" className={classes.body}>
-            Here you manage your garden layout(s) and add information about your
-            plants, create notifications for todos you find important etc.
-          </Typography>
+    <>
+      <MenuItemsLoggedIn />
+      <Container maxWidth="xl">
+        <Grid container direction="column" justify="center">
+          <Grid item xs={12}>
+            <Typography variant="h3" className={classes.header}>
+              My Garden
+            </Typography>
+            <Typography variant="body1" className={classes.body}>
+              Here you manage your garden layout(s) and add information about
+              your plants, create notifications for todos you find important
+              etc.
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
-      {props.gardenItems.map((item) => (
-        <GardenItem
-          key={item.name}
-          name={item.name}
-          description={item.description}
-        />
-      ))}
-      <Grid item xs={12}>
-        <Copyright />
-      </Grid>
-    </Container>
+        {props.gardenItems.map((item) => (
+          <GardenItem
+            key={item.name}
+            name={item.name}
+            description={item.description}
+          />
+        ))}
+        <Grid item xs={12}>
+          <Copyright />
+        </Grid>
+      </Container>
+    </>
   )
 }
 export default GardenView

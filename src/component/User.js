@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Copyright from './Copyright'
 import { authContext } from '../provider/AuthProvider'
 import firebase from 'firebase'
+import MenuItemsLoggedIn from './MenuItemsLoggedIn'
 
 const useStyles = makeStyles({
   header: {
@@ -22,14 +23,35 @@ const User = () => {
     console.log(user)
     const email = user.email !== null ? user.email : ''
     return (
+      <>
+        <MenuItemsLoggedIn />
+        <Container maxWidth="xl">
+          <Grid container direction="column" justify="center">
+            <Grid item xs={12}>
+              <Typography variant="h3" className={classes.header}>
+                User Profile
+              </Typography>
+              <Typography variant="body1" className={classes.header}>
+                email: {email}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Copyright />
+            </Grid>
+          </Grid>
+        </Container>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <MenuItemsLoggedIn />
       <Container maxWidth="xl">
         <Grid container direction="column" justify="center">
           <Grid item xs={12}>
             <Typography variant="h3" className={classes.header}>
-              User Profile
-            </Typography>
-            <Typography variant="body1" className={classes.header}>
-              email: {email}
+              User Profile (no logged in user)
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -37,22 +59,7 @@ const User = () => {
           </Grid>
         </Grid>
       </Container>
-    )
-  }
-
-  return (
-    <Container maxWidth="xl">
-      <Grid container direction="column" justify="center">
-        <Grid item xs={12}>
-          <Typography variant="h3" className={classes.header}>
-            User Profile (no logged in user)
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Copyright />
-        </Grid>
-      </Grid>
-    </Container>
+    </>
   )
 }
 export default User
