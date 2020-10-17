@@ -50,7 +50,7 @@ const SignUp = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('handleSubmit, create user with the email', email)
+    console.log('handleSubmit, create user with the email', inputs.email)
     handleSignup()
     props.history.push('/')
   }
