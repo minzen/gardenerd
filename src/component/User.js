@@ -33,6 +33,7 @@ const User = () => {
   const classes = useStyles()
   const [openEmailDialog, setOpenEmailDialog] = useState(false)
   const [openNameDialog, setOpenNameDialog] = useState(false)
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
   const user = firebase.auth().currentUser
 
   const handleEditEmailDialogOpen = () => {
@@ -50,11 +51,26 @@ const User = () => {
     setOpenNameDialog(false)
   }
 
+  const handlePasswordDialogOpen = () => {
+    setOpenPasswordDialog(true)
+  }
+
+  const handlePasswordDialogClose = () => {
+    setOpenPasswordDialog(false)
+  }
+
   const handleEmailSave = () => {
     console.log('Saving changes to the email...')
+    handleEditEmailDialogClose()
   }
   const handleNameSave = () => {
     console.log('Saving changes to the name...')
+    handleEditNameDialogClose()
+  }
+
+  const handlePasswordSave = () => {
+    console.log('Saving changes to the password...')
+    handlePasswordDialogClose()
   }
 
   if (user) {
@@ -106,6 +122,19 @@ const User = () => {
                   </Button>
                 </Grid>
               </Grid>
+
+              <Grid container direction="row" className={classes.userField}>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handlePasswordDialogOpen}
+                    startIcon={<EditIcon />}
+                  >
+                    Change password
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12}>
               <Copyright />
@@ -116,7 +145,7 @@ const User = () => {
         <Dialog
           open={openEmailDialog}
           onClose={handleEditEmailDialogClose}
-          aria-labelledby="form-dialog-title"
+          aria-labelledby="form-dialog-email"
           maxWidth="xs"
           fullWidth
           className={classes.dialog}
@@ -144,7 +173,7 @@ const User = () => {
         <Dialog
           open={openNameDialog}
           onClose={handleEditNameDialogClose}
-          aria-labelledby="form-dialog-title"
+          aria-labelledby="form-dialog-name"
           maxWidth="xs"
           fullWidth
         >
@@ -156,6 +185,32 @@ const User = () => {
                 variant="contained"
                 color="secondary"
                 onClick={handleNameSave}
+              >
+                Save changes
+              </Button>
+            </DialogActions>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog
+          open={openPasswordDialog}
+          onClose={handlePasswordDialogClose}
+          aria-labelledby="form-dialog-password"
+          maxWidth="xs"
+          fullWidth
+        >
+          <DialogContent className={classes.dialog}>
+            <TextField
+              id="password"
+              placeholder="Password: "
+              value={user.password}
+            />
+            <br />
+            <DialogActions>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handlePasswordSave}
               >
                 Save changes
               </Button>
