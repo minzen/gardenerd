@@ -5,7 +5,7 @@ import Logo from '../assets/img/gardenerd_logo_200x200.png'
 
 const useStyles = makeStyles({
   headerSection: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#424242',
     paddingLeft: 10,
     paddingRight: 10
   }

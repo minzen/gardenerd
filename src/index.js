@@ -5,13 +5,24 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import AuthProvider from './provider/AuthProvider'
 import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark'
+  }
+})
 
 ReactDOM.render(
-  <BrowserRouter>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  </BrowserRouter>,
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <BrowserRouter>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </ThemeProvider>,
   document.getElementById('root')
 )
 

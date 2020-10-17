@@ -31,7 +31,7 @@ const GardenView = (props) => {
             </Typography>
             <Typography variant="body1" className={classes.body}>
               Here you manage your garden layout(s) and add information about
-              your plants, create notifications for todos you find important
+              your plants, create notifications for items you find important
               etc.
             </Typography>
           </Grid>

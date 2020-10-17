@@ -37,6 +37,7 @@ export const GardenItem = (props) => {
     setEditFormVisible(!editFormVisible)
   }
 
+  // TODO: Enable adding a photo
   const editForm = () => {
     if (editFormVisible) {
       return (

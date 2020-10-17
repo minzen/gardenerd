@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 10,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#424242',
     borderStyle: 'solid',
     borderColor: 'lightGrey',
     borderBottomWidth: 1,
@@ -21,18 +21,18 @@ const useStyles = makeStyles({
     borderRightWidth: 0
   },
   menuItemWithPadding: {
-    color: '#2F4F4F',
+    color: '#F7F7F7',
     paddingLeft: 10,
     textDecoration: 'none'
   },
   menuItem: {
-    color: '#2F4F4F',
+    color: '#F7F7F7',
     textDecoration: 'none'
   },
   menuItemStatus: {
     marginLeft: 10,
     textDecoration: 'underline',
-    color: '#2F4F4F'
+    color: '#F7F7F7'
   }
 })
 
