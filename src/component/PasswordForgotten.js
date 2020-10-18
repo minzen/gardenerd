@@ -11,6 +11,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Copyright from './Copyright'
+import Snackbar from '@material-ui/core/Snackbar'
+import firebase from 'firebase'
+import MuiAlert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,17 +32,49 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  header: {
+    paddingBottom: 15
   }
 }))
 
 const PasswordForgotten = (props) => {
   const classes = useStyles()
+  const auth = firebase.auth()
   const [email, setEmail] = useState('')
+  const [openAlert, setOpenAlert] = useState(false)
+  const [alertType, setAlertType] = useState('success')
+  const [alertMsg, setAlertMsg] = useState('')
+
+  const Alert = (props) => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />
+  }
+
+  const handleClose = () => {
+    setOpenAlert(false)
+  }
+
+  const showAlert = (msg, type) => {
+    setAlertMsg(msg)
+    setAlertType(type)
+    setOpenAlert(true)
+  }
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
   }
-  const handleSubmit = () => {
-    console.log('handleSubmit')
+  const handleSubmit = async (event) => {
+    console.log('handleSubmit', email)
+    event.preventDefault()
+    try {
+      await auth.sendPasswordResetEmail(email)
+      showAlert(
+        'Email for resetting the password has been sent successfully.',
+        'info'
+      )
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -49,8 +84,13 @@ const PasswordForgotten = (props) => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" className={classes.header}>
           Reset Password
+        </Typography>
+        <Typography component="body1" variant="body11">
+          If you have lost your password, you can reset the password by
+          providing your Email address below. You'll get instructions to your
+          Email account on how to reset the password.
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -92,6 +132,11 @@ const PasswordForgotten = (props) => {
           </Grid>
         </form>
       </div>
+      <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={alertType}>
+          {alertMsg}
+        </Alert>
+      </Snackbar>
 
       <Box mt={5}>
         <Copyright />
