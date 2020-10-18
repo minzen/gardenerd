@@ -43,6 +43,7 @@ const User = () => {
   const [openEmailDialog, setOpenEmailDialog] = useState(false)
   const [openNameDialog, setOpenNameDialog] = useState(false)
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
+  const [newName, setNewName] = useState('')
   const [newEmail, setNewEmail] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [openAlert, setOpenAlert] = useState(false)
@@ -52,6 +53,7 @@ const User = () => {
   useEffect(() => {
     if (user !== null) {
       setNewEmail(user.email)
+      setNewName(user.displayName)
     }
   }, [])
 
@@ -74,6 +76,10 @@ const User = () => {
 
   const handleEditNameDialogClose = () => {
     setOpenNameDialog(false)
+  }
+
+  const handleNameChange = (event) => {
+    setNewName(event.target.value)
   }
 
   const handlePasswordDialogOpen = () => {
@@ -102,7 +108,15 @@ const User = () => {
 
   const handleNameSave = async () => {
     console.log('Saving changes to the name...')
-    handleEditNameDialogClose()
+    try {
+      await user.updateProfile({
+        displayName: newName
+      })
+      handleEditNameDialogClose()
+    } catch (error) {
+      console.log(error)
+      showAlert(error, 'error')
+    }
   }
 
   const handlePasswordChange = (event) => {
@@ -235,7 +249,12 @@ const User = () => {
           fullWidth
         >
           <DialogContent className={classes.dialog}>
-            <TextField id="name" placeholder="Name: " value={user.name} />
+            <TextField
+              id="name"
+              placeholder="Name: "
+              value={newName}
+              onChange={handleNameChange}
+            />
             <br />
             <DialogActions>
               <Button
