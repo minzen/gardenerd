@@ -204,6 +204,7 @@ const User = () => {
               id="password"
               placeholder="Password: "
               value={user.password}
+              type="password"
             />
             <br />
             <DialogActions>
