@@ -18,7 +18,9 @@ const Header = () => {
     <Container maxWidth="xl">
       <Grid container direction="column" justify="center">
         <Grid item xs={12} className={classes.headerSection}>
-          <img src={Logo} alt="sitelogo" />
+          <a href="/">
+            <img src={Logo} alt="sitelogo" />
+          </a>
         </Grid>
       </Grid>
     </Container>
