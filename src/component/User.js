@@ -7,6 +7,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  Snackbar,
   TextField
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -14,8 +15,9 @@ import Copyright from './Copyright'
 import firebase from 'firebase'
 import MenuItemsLoggedIn from './MenuItemsLoggedIn'
 import EditIcon from '@material-ui/icons/Edit'
+import MuiAlert from '@material-ui/lab/Alert'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   header: {
     paddingBottom: 15,
     paddingTop: 15,
@@ -26,14 +28,25 @@ const useStyles = makeStyles({
   },
   overlay: {
     backgroundColor: 'grey'
+  },
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2)
+    }
   }
-})
+}))
 
 const User = () => {
   const classes = useStyles()
   const [openEmailDialog, setOpenEmailDialog] = useState(false)
   const [openNameDialog, setOpenNameDialog] = useState(false)
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
+  const [newPassword, setNewPassword] = useState('')
+  const [openAlert, setOpenAlert] = useState(false)
+  const [alertType, setAlertType] = useState('success')
+  const [alertMsg, setAlertMsg] = useState('')
+
   const user = firebase.auth().currentUser
 
   const handleEditEmailDialogOpen = () => {
@@ -59,18 +72,42 @@ const User = () => {
     setOpenPasswordDialog(false)
   }
 
-  const handleEmailSave = () => {
+  const handleEmailSave = async () => {
     console.log('Saving changes to the email...')
     handleEditEmailDialogClose()
   }
-  const handleNameSave = () => {
+  const handleNameSave = async () => {
     console.log('Saving changes to the name...')
     handleEditNameDialogClose()
   }
 
-  const handlePasswordSave = () => {
-    console.log('Saving changes to the password...')
+  const handlePasswordChange = (event) => {
+    setNewPassword(event.target.value)
+  }
+
+  const handleClose = () => {
+    setOpenAlert(false)
+  }
+
+  const showSuccessAlert = () => {
+    setAlertMsg('Password updated successfully')
+    setAlertType('info')
+    setOpenAlert(true)
+  }
+
+  const handlePasswordSave = async () => {
+    console.log('Updating the password...', newPassword)
+    try {
+      await user.updatePassword(newPassword)
+      showSuccessAlert()
+    } catch (error) {
+      console.log(error)
+    }
     handlePasswordDialogClose()
+  }
+
+  const Alert = (props) => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />
   }
 
   if (user) {
@@ -203,8 +240,9 @@ const User = () => {
             <TextField
               id="password"
               placeholder="Password: "
-              value={user.password}
+              value={newPassword}
               type="password"
+              onChange={handlePasswordChange}
             />
             <br />
             <DialogActions>
@@ -218,6 +256,16 @@ const User = () => {
             </DialogActions>
           </DialogContent>
         </Dialog>
+
+        <Snackbar
+          open={openAlert}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity={alertType}>
+            {alertMsg}
+          </Alert>
+        </Snackbar>
       </>
     )
   }
