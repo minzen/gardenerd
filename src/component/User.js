@@ -39,15 +39,27 @@ const useStyles = makeStyles((theme) => ({
 
 const User = () => {
   const classes = useStyles()
+  const user = firebase.auth().currentUser
   const [openEmailDialog, setOpenEmailDialog] = useState(false)
   const [openNameDialog, setOpenNameDialog] = useState(false)
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
+  const [newEmail, setNewEmail] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [openAlert, setOpenAlert] = useState(false)
   const [alertType, setAlertType] = useState('success')
   const [alertMsg, setAlertMsg] = useState('')
 
-  const user = firebase.auth().currentUser
+  useEffect(() => {
+    if (user !== null) {
+      setNewEmail(user.email)
+    }
+  }, [])
+
+  const showAlert = (msg, type) => {
+    setAlertMsg(msg)
+    setAlertType(type)
+    setOpenAlert(true)
+  }
 
   const handleEditEmailDialogOpen = () => {
     setOpenEmailDialog(true)
@@ -72,10 +84,22 @@ const User = () => {
     setOpenPasswordDialog(false)
   }
 
+  const handleEmailChange = (event) => {
+    setNewEmail(event.target.value)
+  }
+
   const handleEmailSave = async () => {
     console.log('Saving changes to the email...')
-    handleEditEmailDialogClose()
+    try {
+      await user.updateEmail(newEmail)
+      showAlert('Email address updated successfully', 'info')
+      handleEditEmailDialogClose()
+    } catch (error) {
+      console.log(error)
+      showAlert(error, 'error')
+    }
   }
+
   const handleNameSave = async () => {
     console.log('Saving changes to the name...')
     handleEditNameDialogClose()
@@ -89,21 +113,16 @@ const User = () => {
     setOpenAlert(false)
   }
 
-  const showSuccessAlert = () => {
-    setAlertMsg('Password updated successfully')
-    setAlertType('info')
-    setOpenAlert(true)
-  }
-
   const handlePasswordSave = async () => {
     console.log('Updating the password...', newPassword)
     try {
       await user.updatePassword(newPassword)
-      showSuccessAlert()
+      showAlert('Password updated successfully', 'info')
+      handlePasswordDialogClose()
     } catch (error) {
       console.log(error)
+      showAlert(error, 'error')
     }
-    handlePasswordDialogClose()
   }
 
   const Alert = (props) => {
@@ -192,7 +211,8 @@ const User = () => {
               autoFocus
               id="email"
               placeholder="Email: "
-              value={user.email}
+              value={newEmail}
+              onChange={handleEmailChange}
               fullWidth
             />
             <DialogActions>
