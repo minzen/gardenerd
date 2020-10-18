@@ -9,6 +9,7 @@ import Info from './component/Info'
 import SignIn from './component/Signin'
 import SignUp from './component/Signup'
 import Logout from './component/Logout'
+import PasswordForgotten from './component/PasswordForgotten'
 
 const App = () => {
   const sampleItems = [
@@ -47,6 +48,7 @@ const App = () => {
           <Route exact path="/login" component={SignIn} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/logout" component={Logout} />
+          <Route exact path="/resetpassword" component={PasswordForgotten} />
         </Switch>
       </div>
     </Router>
