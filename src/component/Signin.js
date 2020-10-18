@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Copyright from './Copyright'
 import { authContext } from '../provider/AuthProvider'
+import { withRouter } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,13 +49,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const SignIn = () => {
+const SignIn = (props) => {
   const classes = useStyles()
   const { handleSignin, inputs, setInputs, errors } = useContext(authContext)
 
   const handleSubmit = (event) => {
     event.preventDefault()
     handleSignin()
+    props.history.push('/')
   }
 
   const handleChange = (event) => {
@@ -146,4 +148,4 @@ const SignIn = () => {
     </Grid>
   )
 }
-export default SignIn
+export default withRouter(SignIn)
