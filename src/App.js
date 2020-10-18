@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { authContext } from './provider/AuthProvider'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
@@ -10,17 +10,35 @@ import SignIn from './component/Signin'
 import SignUp from './component/Signup'
 import Logout from './component/Logout'
 import PasswordForgotten from './component/PasswordForgotten'
+import firebase from 'firebase'
 
 const App = () => {
-  const sampleItems = [
-    { name: 'Tomato', description: 'Tomato description' },
-    { name: 'Cucumber', description: 'Tommy' }
-  ]
-  const [gardenItems, setGardenItems] = useState(sampleItems)
+  const [gardenItems, setGardenItems] = useState([])
   const { handleSignup } = useContext(authContext)
   console.log(handleSignup)
   const { token } = useContext(authContext)
   console.log(token)
+  const db = firebase.firestore()
+
+  const getGardenItemList = () => {
+    return db.collection('gardenitem').get()
+  }
+
+  useEffect(() => {
+    try {
+      getGardenItemList().then((gardenItemList) => {
+        let items = []
+        if (gardenItemList !== null && gardenItemList.docs !== null) {
+          gardenItemList.docs.map((doc) => {
+            items.push(doc.data())
+          })
+          setGardenItems(items)
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   return (
     <Router>

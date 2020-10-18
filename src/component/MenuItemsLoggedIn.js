@@ -5,7 +5,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlined'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   menuBar: {

@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, TextField, Button } from '@material-ui/core'
+import {
+  Dialog,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button
+} from '@material-ui/core'
 
 const useStyles = makeStyles({
   textField: {
@@ -10,55 +16,119 @@ const useStyles = makeStyles({
 
 const GardenItemForm = (props) => {
   const classes = useStyles()
+  const [newName, setNewName] = useState(props.name)
+  const [newDescription, setNewDescription] = useState(props.description)
+  const [newNotes, setNewNotes] = useState(props.notes)
+  const [newPlantingDate, setNewPlantingDate] = useState(props.plantingDate)
+  const [newX, setNewX] = useState(props.x)
+  const [newY, setNewY] = useState(props.y)
 
-  const handleTitleChange = (event) => {
+  const handleNameChange = (event) => {
     console.log(event.target.value)
-    props.setName(event.target.value)
+    setNewName(event.target.value)
   }
 
-  const handleDescrChange = (event) => {
+  const handleDescriptionChange = (event) => {
     console.log(event.target.value)
-    props.setDescription(event.target.value)
+    setNewDescription(event.target.value)
   }
 
-  const handleFormSubmit = () => {
-    console.log('saving form values', props.name, props.description)
+  const handleNotesChange = (event) => {
+    console.log(event.target.value)
+    setNewNotes(event.target.value)
+  }
+  const handlePlantingDateChange = (event) => {
+    console.log(event.target.value)
+    setNewPlantingDate(event.target.value)
+  }
+
+  const handleXChange = (event) => {
+    console.log(event.target.value)
+    setNewX(event.target.value)
+  }
+  const handleYChange = (event) => {
+    console.log(event.target.value)
+    setNewY(event.target.value)
+  }
+
+  const handleItemSave = () => {
+    console.log(
+      'saving form values',
+      newName,
+      newDescription,
+      newPlantingDate,
+      newNotes,
+      newX,
+      newY
+    )
+    // TODO: Save to the DB (and take care of that the reference to the user is also stored)
+    props.closeEditForm()
   }
 
   return (
-    <Grid container direction="column">
-      <Grid item xs={12}>
+    <Dialog
+      open={props.editFormVisible}
+      onClose={props.closeEditForm}
+      aria-labelledby="form-dialog-item"
+      maxWidth="xs"
+      fullWidth
+      className={classes.dialog}
+    >
+      <DialogContent>
         <TextField
-          value={props.name}
-          className={classes.textField}
-          onChange={(event) => {
-            return handleTitleChange(event)
-          }}
-        >
-          Name:{' '}
-        </TextField>
-      </Grid>
-      <Grid item xs={12}>
+          autoFocus
+          id="name"
+          placeholder="Name: "
+          value={newName}
+          onChange={handleNameChange}
+          fullWidth
+        />
         <TextField
-          value={props.description}
-          className={classes.textField}
-          onChange={(event) => {
-            return handleDescrChange(event)
-          }}
-        >
-          Description:{' '}
-        </TextField>
-      </Grid>
-      <Grid item xs={12}>
-        <Button
-          onClick={handleFormSubmit}
-          variant="contained"
-          color="secondary"
-        >
-          Save changes
-        </Button>
-      </Grid>
-    </Grid>
+          id="description"
+          placeholder="Description: "
+          value={newDescription}
+          onChange={handleDescriptionChange}
+          fullWidth
+        />
+        <TextField
+          id="notes"
+          placeholder="Notes: "
+          value={newNotes}
+          onChange={handleNotesChange}
+          fullWidth
+        />
+        <TextField
+          id="plantingDate"
+          placeholder="Planting date: "
+          value={newPlantingDate}
+          onChange={handlePlantingDateChange}
+          fullWidth
+        />
+        <TextField
+          id="x"
+          placeholder="X: "
+          value={newX}
+          onChange={handleXChange}
+          fullWidth
+        />
+        <TextField
+          id="y"
+          placeholder="Y: "
+          value={newY}
+          onChange={handleYChange}
+          fullWidth
+        />
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleItemSave}
+          >
+            Save changes
+          </Button>
+        </DialogActions>
+      </DialogContent>
+    </Dialog>
   )
 }
 export default GardenItemForm

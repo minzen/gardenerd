@@ -29,7 +29,11 @@ const GardenView = (props) => {
             <Typography variant="h3" className={classes.header}>
               My Garden
             </Typography>
-            <Typography variant="body1" className={classes.body}>
+            <Typography
+              variant="body1"
+              component="body1"
+              className={classes.body}
+            >
               Here you manage your garden layout(s) and add information about
               your plants, create notifications for items you find important
               etc.
@@ -38,9 +42,14 @@ const GardenView = (props) => {
         </Grid>
         {props.gardenItems.map((item) => (
           <GardenItem
-            key={item.name}
-            name={item.name}
-            description={item.description}
+            key={item.plantName}
+            name={item.plantName}
+            description={item.plantDescription}
+            plantingDate={item.plantingDate}
+            notes={item.notes}
+            x={item.locationX}
+            y={item.locationY}
+            uid={item.uid}
           />
         ))}
         <Grid item xs={12}>

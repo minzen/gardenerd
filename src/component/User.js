@@ -55,7 +55,7 @@ const User = () => {
       setNewEmail(user.email)
       setNewName(user.displayName)
     }
-  }, [])
+  }, [user])
 
   const showAlert = (msg, type) => {
     setAlertMsg(msg)
