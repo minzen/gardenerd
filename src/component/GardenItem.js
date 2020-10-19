@@ -71,6 +71,9 @@ export const GardenItem = (props) => {
     }
   }
 
+  const plantingDateStr =
+    plantingDate !== null ? plantingDate.toDate().toDateString() : ''
+
   return (
     <>
       <Card className={classes.root} variant="outlined">
@@ -92,7 +95,7 @@ export const GardenItem = (props) => {
           </Typography>
           <br />
           <Typography variant="body1" component="body1">
-            Planting date: {plantingDate.toString()}
+            Planting date: {plantingDateStr}
           </Typography>
           <br />
           <Typography variant="body1" component="body1">

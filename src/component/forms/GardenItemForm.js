@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns'
+import { KeyboardDatePicker } from '@material-ui/pickers'
 import {
   Dialog,
   DialogContent,
@@ -19,7 +22,9 @@ const GardenItemForm = (props) => {
   const [newName, setNewName] = useState(props.name)
   const [newDescription, setNewDescription] = useState(props.description)
   const [newNotes, setNewNotes] = useState(props.notes)
-  const [newPlantingDate, setNewPlantingDate] = useState(props.plantingDate)
+  const [newPlantingDate, setNewPlantingDate] = useState(
+    props.plantingDate.toDate()
+  )
   const [newX, setNewX] = useState(props.x)
   const [newY, setNewY] = useState(props.y)
 
@@ -37,9 +42,10 @@ const GardenItemForm = (props) => {
     console.log(event.target.value)
     setNewNotes(event.target.value)
   }
-  const handlePlantingDateChange = (event) => {
-    console.log(event.target.value)
-    setNewPlantingDate(event.target.value)
+
+  const handlePlantingDateChange = (date) => {
+    console.log(date)
+    setNewPlantingDate(date)
   }
 
   const handleXChange = (event) => {
@@ -97,13 +103,22 @@ const GardenItemForm = (props) => {
           onChange={handleNotesChange}
           fullWidth
         />
-        <TextField
-          id="plantingDate"
-          placeholder="Planting date: "
-          value={newPlantingDate}
-          onChange={handlePlantingDateChange}
-          fullWidth
-        />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            disableToolbar
+            fullWidth
+            variant="inline"
+            format="MM/dd/yyyy"
+            margin="normal"
+            id="date-picker-inline"
+            label="Planting date"
+            value={newPlantingDate}
+            onChange={handlePlantingDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'change date'
+            }}
+          />
+        </MuiPickersUtilsProvider>
         <TextField
           id="x"
           placeholder="X: "
