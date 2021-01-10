@@ -1,6 +1,6 @@
 # Gardenerd
 
-_Gardenerd_ is an app for enthusiastic gardeners that are restricted from using new technology as helping tool. With this app it is possible to maintain bookkeeping about the plants, their location in the garden or a desired spot. The user is able to adjust the layout, add information about the plats, e.g. images, textual information, reminders and remarks which all in all should make the gardening an easier task.
+_Gardenerd_ is an app for enthusiastic gardeners that are not restricted from using new technology as helping tool. With this app it is possible to maintain bookkeeping about the plants, their location in the garden or a desired spot. The user is able to adjust the layout, add information about the plats, e.g. images, textual information, reminders and remarks which all in all should make the gardening an easier task.
 
 I'm delighted about all feedback, so if you have any ideas or wishes about to which direction the app should be developed, please go ahead.
 
@@ -9,7 +9,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
-
 ### `yarn start`
 
 Runs the app in the development mode.<br />
