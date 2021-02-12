@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   }
 })
 
-export const GardenItem = (props) => {
+const GardenItem = (props) => {
   console.log(props)
   const classes = useStyles()
   const [title, setTitle] = useState(props.name)
@@ -36,6 +36,8 @@ export const GardenItem = (props) => {
   const [x, setX] = useState(props.x)
   const [y, setY] = useState(props.y)
   const [editFormVisible, setEditFormVisible] = useState(false)
+  const plantingDateStr =
+    plantingDate !== null ? plantingDate.toDate().toDateString() : ''
 
   const handleEditItem = () => {
     console.log('Edit clicked on item', props.name)
@@ -70,9 +72,6 @@ export const GardenItem = (props) => {
       )
     }
   }
-
-  const plantingDateStr =
-    plantingDate !== null ? plantingDate.toDate().toDateString() : ''
 
   return (
     <>
@@ -118,3 +117,4 @@ export const GardenItem = (props) => {
     </>
   )
 }
+export default GardenItem

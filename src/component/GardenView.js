@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { GardenItem } from './GardenItem'
+import GardenItem from './GardenItem'
 import Copyright from './Copyright'
 import MenuItemsLoggedIn from './MenuItemsLoggedIn'
 
