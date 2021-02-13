@@ -1,5 +1,5 @@
 # Pull official base image
-FROM node:14.9.0-alpine3.10
+FROM node:14-alpine
 
 # set working directory
 WORKDIR /usr/local/app
@@ -14,6 +14,8 @@ RUN yarn install
 
 # add app
 COPY . ./
+
+EXPOSE 3000
 
 # start app
 CMD ["yarn", "start"]
