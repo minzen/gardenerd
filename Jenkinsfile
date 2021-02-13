@@ -14,5 +14,13 @@ pipeline {
                 sh 'npm install'
             }
         }
+        stage('Deploy') {
+            if (env.BRANCH_NAME == 'master') {
+                sh 'docker build -t gardenerd --no-cache .'
+                sh 'docker tag gardenerd localhost:3000/gardenerd'
+                sh 'docker push localhost:3000/gardenerd'
+                sh 'docker rmi -f gardenerd localhost:3000/gardenerd'
+            }
+        }
     }
 }
