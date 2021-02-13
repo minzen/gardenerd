@@ -16,10 +16,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker build -t gardenerd --no-cache .'
-                sh 'docker tag gardenerd localhost:3000/gardenerd'
-                sh 'docker push localhost:3000/gardenerd'
-                sh 'docker rmi -f gardenerd localhost:3000/gardenerd'
+                sh '/usr/local/bin/docker build -t gardenerd --no-cache .'
+                sh '/usr/local/bin/docker tag gardenerd localhost:3000/gardenerd'
+                sh '/usr/local/bin/docker push localhost:3000/gardenerd'
+                sh '/usr/local/bin/docker rmi -f gardenerd localhost:3000/gardenerd'
             }
         }
     }
