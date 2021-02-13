@@ -10,7 +10,7 @@ ENV PATH /usr/local/app/node_modules/.bin:$PATH
 # install app dependencies
 COPY package*.json ./
 
-RUN yarn install 
+RUN npm install 
 
 # add app
 COPY . ./
@@ -18,4 +18,4 @@ COPY . ./
 EXPOSE 3000
 
 # start app
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
