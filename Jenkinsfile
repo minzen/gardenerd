@@ -16,8 +16,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                docker build -t gardenerd:${BUILD_NUMBER --no-cache .
-                docker tag gardenerd:${BUILD_NUMBER gardenerd:latest
+                docker build -t gardenerd:${BUILD_NUMBER} --no-cache .
+                docker tag gardenerd:${BUILD_NUMBER} gardenerd:latest
                 docker push localhost:3000/gardenerd
                 docker rmi -f gardenerd localhost:3000/gardenerd
             }
