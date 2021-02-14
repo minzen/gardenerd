@@ -9,17 +9,20 @@ pipeline {
         npm_config_cache = 'npm-cache'
     }
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
+                echo 'Building gardenerd'
                 sh 'npm install'
             }
         }
-        stage('Deploy') {
+        stage('test') {
             steps {
-                docker build -t gardenerd:${BUILD_NUMBER} --no-cache .
-                docker tag gardenerd:${BUILD_NUMBER} gardenerd:latest
-                docker push localhost:3000/gardenerd
-                docker rmi -f gardenerd localhost:3000/gardenerd
+                echo 'Executing gardenerd tests'
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'Deploying software'
             }
         }
     }
