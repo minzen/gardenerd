@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, Grid, Typography } from '@material-ui/core'
+import { Container, Grid, Typography, Fab } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import AddIcon from '@material-ui/icons/Add'
 import GardenItem from './GardenItem'
 import Copyright from './Copyright'
 import MenuItemsLoggedIn from './MenuItemsLoggedIn'
@@ -14,16 +15,33 @@ const useStyles = makeStyles({
     paddingBottom: 15,
     paddingTop: 15,
     fontSize: 20
+  },
+  fab: {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
   }
 })
 
 const GardenView = (props) => {
   const classes = useStyles()
 
+  const handleClick = () => {
+    console.log("Fab clicked")
+  }
+
   return (
     <>
       <MenuItemsLoggedIn />
       <Container maxWidth="xl">
+
+        <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleClick}>
+            <AddIcon />
+        </Fab>      
+
         <Grid container direction="column" justify="center">
           <Grid item xs={12}>
             <Typography variant="h3" className={classes.header}>
