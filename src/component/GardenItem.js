@@ -48,8 +48,30 @@ const GardenItem = (props) => {
   }
 
   const handleDeleteItem = () => {
-    console.log('Delete clicked on item', props)
-    return db.collection('gardenitem').doc(props.name).delete()
+    console.log('Delete clicked on item', props.uid)
+    db.collection('gardenitem').doc(props.uid).delete().then(() => {
+      console.log("Document successfully deleted!")
+      fetchDbItems();
+    }).catch((error) => {
+      console.error("Error removing document: " , error)
+    })
+  }
+
+  const fetchDbItems = () => {
+    try {
+      db.collection('gardenitem').get().then((gardenItemList) => {
+        let items = []
+        if (gardenItemList !== null && gardenItemList.docs !== null) {
+          gardenItemList.docs.map((doc) => {
+            console.log("id: " + doc.id)
+            items.push(doc.data())
+          })
+          props.setGardenItems(items)
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const closeEditForm = () => {
@@ -93,19 +115,19 @@ const GardenItem = (props) => {
             Name: {title}
           </Typography>
           <br />
-          <Typography variant="h5" component="h2">
+          <Typography variant="h5">
             Description: {description}
           </Typography>
           <br />
-          <Typography variant="body1" component="body1">
+          <Typography variant="body1">
             Notes: {notes}
           </Typography>
           <br />
-          <Typography variant="body1" component="body1">
+          <Typography variant="body1">
             Planting date: {plantingDateStr}
           </Typography>
           <br />
-          <Typography variant="body1" component="body1">
+          <Typography variant="body1">
             Location in x,y: [{x},{y}]
           </Typography>
         </CardContent>

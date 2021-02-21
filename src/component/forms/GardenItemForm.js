@@ -10,6 +10,7 @@ import {
   TextField,
   Button
 } from '@material-ui/core'
+import firebase from 'firebase'
 
 const useStyles = makeStyles({
   textField: {
@@ -27,6 +28,7 @@ const GardenItemForm = (props) => {
   )
   const [newX, setNewX] = useState(props.x)
   const [newY, setNewY] = useState(props.y)
+  const db = firebase.firestore()
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -57,6 +59,25 @@ const GardenItemForm = (props) => {
     setNewY(event.target.value)
   }
 
+  const fetchDbItems = () => {
+    try {
+      db.collection('gardenitem')
+        .get()
+        .then((gardenItemList) => {
+          let items = []
+          if (gardenItemList !== null && gardenItemList.docs !== null) {
+            gardenItemList.docs.map((doc) => {
+              console.log('id: ' + doc.id)
+              items.push(doc.data())
+            })
+            props.setGardenItems(items)
+          }
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleItemSave = () => {
     console.log(
       'saving form values',
@@ -67,7 +88,20 @@ const GardenItemForm = (props) => {
       newX,
       newY
     )
-    // TODO: Save to the DB (and take care of that the reference to the user is also stored)
+    // TODO: validation
+
+    let newPlantKey = firebase.database().ref().child('gardenitem').push().key
+    const savedItem = db.collection('gardenitem').doc(newPlantKey).set({
+      plantName: newName,
+      plantDescription: newDescription,
+      plantingDate: newPlantingDate,
+      notes: newNotes,
+      locationX: newX,
+      locationY: newY,
+      uid: newPlantKey
+    })
+    console.log('Saved', savedItem, newPlantKey)
+    fetchDbItems()
     props.closeEditForm()
   }
 

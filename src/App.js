@@ -20,16 +20,13 @@ const App = () => {
   console.log(token)
   const db = firebase.firestore()
 
-  const getGardenItemList = () => {
-    return db.collection('gardenitem').get()
-  }
-
-  useEffect(() => {
+  useEffect(async () => {
     try {
-      getGardenItemList().then((gardenItemList) => {
+      db.collection('gardenitem').get().then((gardenItemList) => {
         let items = []
         if (gardenItemList !== null && gardenItemList.docs !== null) {
           gardenItemList.docs.map((doc) => {
+            console.log("id: " + doc.id)
             items.push(doc.data())
           })
           setGardenItems(items)

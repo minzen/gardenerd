@@ -7,6 +7,7 @@ import Copyright from './Copyright'
 import MenuItemsLoggedIn from './MenuItemsLoggedIn'
 import GardenItemForm from './forms/GardenItemForm'
 import moment from 'moment'
+import firebase from 'firebase'
 
 const useStyles = makeStyles({
   body: {
@@ -31,34 +32,47 @@ const useStyles = makeStyles({
 const GardenView = (props) => {
   const classes = useStyles()
   const [editFormVisible, setEditFormVisible] = useState(false)
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState(props.description)
+  const [plantingDate, setPlantingDate] = useState(props.plantingDate)
+  const [notes, setNotes] = useState(props.notes)
+  const [x, setX] = useState(props.x)
+  const [y, setY] = useState(props.y)
+  const db = firebase.firestore()
+
+
+  const handleClick = () => {
+    console.log('Fab clicked')
+    setEditFormVisible(!editFormVisible)
+  }
+
+  const closeEditForm = () => {
+    setEditFormVisible(false)
+  }
 
   const editForm = () => {
     if (editFormVisible) {
       return (
         <GardenItemForm
-          name={""}
-          description={""}
+          name={title}
+          description={description}
           plantingDate={moment()}
-          notes={""}
-          x={100}
-          y={100}
-          //setName={setTitle}
-          // setDescription={setDescription}
-          // setPlantingDate={setPlantingDate}
-          // setNotes={setNotes}
-          // setX={setX}
-          // setY={setY}
+          notes={notes}
+          x={x}
+          y={y}
+          setName={setTitle}
+          setDescription={setDescription}
+          setPlantingDate={setPlantingDate}
+          setNotes={setNotes}
+          setX={setX}
+          setY={setY}
           editFormVisible={editFormVisible}
           setEditFormVisible={setEditFormVisible}
-          // closeEditForm={closeEditForm}
+          closeEditForm={closeEditForm}
+          setGardenItems={props.setGardenItems}
         />
       )
     }
-  }
-
-  const handleClick = () => {
-    console.log('Fab clicked')
-    setEditFormVisible(!editFormVisible)
   }
 
   return (
@@ -81,7 +95,6 @@ const GardenView = (props) => {
             </Typography>
             <Typography
               variant="body1"
-              component="body1"
               className={classes.body}
             >
               Here you manage your garden layout(s) and add information about
@@ -97,9 +110,10 @@ const GardenView = (props) => {
             description={item.plantDescription}
             plantingDate={item.plantingDate}
             notes={item.notes}
+            uid={item.uid}
             x={item.locationX}
             y={item.locationY}
-            uid={item.uid}
+            setGardenItems={props.setGardenItems}
           />
         ))}
         {editForm()}
