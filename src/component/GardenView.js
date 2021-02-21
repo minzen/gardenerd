@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Container, Grid, Typography, Fab } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
 import GardenItem from './GardenItem'
 import Copyright from './Copyright'
 import MenuItemsLoggedIn from './MenuItemsLoggedIn'
+import GardenItemForm from './forms/GardenItemForm'
+import moment from 'moment'
 
 const useStyles = makeStyles({
   body: {
@@ -22,25 +24,55 @@ const useStyles = makeStyles({
     right: 20,
     bottom: 20,
     left: 'auto',
-    position: 'fixed',
+    position: 'fixed'
   }
 })
 
 const GardenView = (props) => {
   const classes = useStyles()
+  const [editFormVisible, setEditFormVisible] = useState(false)
+
+  const editForm = () => {
+    if (editFormVisible) {
+      return (
+        <GardenItemForm
+          name={""}
+          description={""}
+          plantingDate={moment()}
+          notes={""}
+          x={100}
+          y={100}
+          //setName={setTitle}
+          // setDescription={setDescription}
+          // setPlantingDate={setPlantingDate}
+          // setNotes={setNotes}
+          // setX={setX}
+          // setY={setY}
+          editFormVisible={editFormVisible}
+          setEditFormVisible={setEditFormVisible}
+          // closeEditForm={closeEditForm}
+        />
+      )
+    }
+  }
 
   const handleClick = () => {
-    console.log("Fab clicked")
+    console.log('Fab clicked')
+    setEditFormVisible(!editFormVisible)
   }
 
   return (
     <>
       <MenuItemsLoggedIn />
       <Container maxWidth="xl">
-
-        <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleClick}>
-            <AddIcon />
-        </Fab>      
+        <Fab
+          color="primary"
+          aria-label="add"
+          className={classes.fab}
+          onClick={handleClick}
+        >
+          <AddIcon />
+        </Fab>
 
         <Grid container direction="column" justify="center">
           <Grid item xs={12}>
@@ -70,6 +102,7 @@ const GardenView = (props) => {
             uid={item.uid}
           />
         ))}
+        {editForm()}
         <Grid item xs={12}>
           <Copyright />
         </Grid>

@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import GardenItemForm from './forms/GardenItemForm'
+import firebase from 'firebase'
 
 const useStyles = makeStyles({
   root: {
@@ -36,12 +37,19 @@ const GardenItem = (props) => {
   const [x, setX] = useState(props.x)
   const [y, setY] = useState(props.y)
   const [editFormVisible, setEditFormVisible] = useState(false)
+  const db = firebase.firestore()
   const plantingDateStr =
     plantingDate !== null ? plantingDate.toDate().toDateString() : ''
+
 
   const handleEditItem = () => {
     console.log('Edit clicked on item', props.name)
     setEditFormVisible(true)
+  }
+
+  const handleDeleteItem = () => {
+    console.log('Delete clicked on item', props)
+    return db.collection('gardenitem').doc(props.name).delete()
   }
 
   const closeEditForm = () => {
@@ -109,6 +117,14 @@ const GardenItem = (props) => {
             onClick={handleEditItem}
           >
             Edit plant information
+          </Button>
+          <Button
+            size="small"
+            variant="contained"
+            color="secondary"
+            onClick={handleDeleteItem}
+          >
+            Delete plant item
           </Button>
         </CardActions>
       </Card>
