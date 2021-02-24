@@ -28,6 +28,8 @@ const GardenItemForm = (props) => {
   )
   const [newX, setNewX] = useState(props.x)
   const [newY, setNewY] = useState(props.y)
+  const [newUid, setNewUid] = useState(props.uid)
+
   const db = firebase.firestore()
 
   const handleNameChange = (event) => {
@@ -86,21 +88,27 @@ const GardenItemForm = (props) => {
       newPlantingDate,
       newNotes,
       newX,
-      newY
+      newY,
+      newUid
     )
     // TODO: validation
-
-    let newPlantKey = firebase.database().ref().child('gardenitem').push().key
-    const savedItem = db.collection('gardenitem').doc(newPlantKey).set({
+    //
+    let plantToSaveKey = props.uid
+    // If there's an existing entry, use it to not save a new one
+    console.log('plantToSaveKey', plantToSaveKey)
+    if (props.uid === undefined) {
+      plantToSaveKey = firebase.database().ref().child('gardenitem').push().key
+    }
+    const savedItem = db.collection('gardenitem').doc(plantToSaveKey).set({
       plantName: newName,
       plantDescription: newDescription,
       plantingDate: newPlantingDate,
       notes: newNotes,
       locationX: newX,
       locationY: newY,
-      uid: newPlantKey
+      uid: plantToSaveKey
     })
-    console.log('Saved', savedItem, newPlantKey)
+    console.log('Saved', savedItem, plantToSaveKey)
     fetchDbItems()
     props.closeEditForm()
   }

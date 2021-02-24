@@ -105,7 +105,7 @@ const GardenView = (props) => {
         </Grid>
         {props.gardenItems.map((item) => (
           <GardenItem
-            key={item.plantName}
+            key={item.uid}
             name={item.plantName}
             description={item.plantDescription}
             plantingDate={item.plantingDate}

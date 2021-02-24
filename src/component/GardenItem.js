@@ -9,6 +9,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import GardenItemForm from './forms/GardenItemForm'
 import firebase from 'firebase'
+import AlertDialog from './AlertDialog'
 
 const useStyles = makeStyles({
   root: {
@@ -37,38 +38,52 @@ const GardenItem = (props) => {
   const [x, setX] = useState(props.x)
   const [y, setY] = useState(props.y)
   const [editFormVisible, setEditFormVisible] = useState(false)
+  const [deleteItemDialogVisible, setDeleteItemDialogVisible] = useState(false)
   const db = firebase.firestore()
   const plantingDateStr =
     plantingDate !== null ? plantingDate.toDate().toDateString() : ''
-
 
   const handleEditItem = () => {
     console.log('Edit clicked on item', props.name)
     setEditFormVisible(true)
   }
 
+  const showDeleteDialog = () => {
+    setDeleteItemDialogVisible(true)
+  }
+
+  const closeDeleteDialog = () => {
+    setDeleteItemDialogVisible(false)
+  }
+
   const handleDeleteItem = () => {
     console.log('Delete clicked on item', props.uid)
-    db.collection('gardenitem').doc(props.uid).delete().then(() => {
-      console.log("Document successfully deleted!")
-      fetchDbItems();
-    }).catch((error) => {
-      console.error("Error removing document: " , error)
-    })
+    db.collection('gardenitem')
+      .doc(props.uid)
+      .delete()
+      .then(() => {
+        console.log('Document successfully deleted!')
+        fetchDbItems()
+      })
+      .catch((error) => {
+        console.error('Error removing document: ', error)
+      })
   }
 
   const fetchDbItems = () => {
     try {
-      db.collection('gardenitem').get().then((gardenItemList) => {
-        let items = []
-        if (gardenItemList !== null && gardenItemList.docs !== null) {
-          gardenItemList.docs.map((doc) => {
-            console.log("id: " + doc.id)
-            items.push(doc.data())
-          })
-          props.setGardenItems(items)
-        }
-      })
+      db.collection('gardenitem')
+        .get()
+        .then((gardenItemList) => {
+          let items = []
+          if (gardenItemList !== null && gardenItemList.docs !== null) {
+            gardenItemList.docs.map((doc) => {
+              console.log('id: ' + doc.id)
+              items.push(doc.data())
+            })
+            props.setGardenItems(items)
+          }
+        })
     } catch (error) {
       console.log(error)
     }
@@ -98,6 +113,7 @@ const GardenItem = (props) => {
           editFormVisible={editFormVisible}
           setEditFormVisible={setEditFormVisible}
           closeEditForm={closeEditForm}
+          setGardenItems={props.setGardenItems}
         />
       )
     }
@@ -105,6 +121,13 @@ const GardenItem = (props) => {
 
   return (
     <>
+      <AlertDialog
+        dialogOpen={deleteItemDialogVisible}
+        closeDeleteDialog={closeDeleteDialog}
+        confirmAction={handleDeleteItem}
+        title={'Delete item?'}
+        description={'Are you certain that you want the item to be deleted?'}
+      />
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <Typography
@@ -115,13 +138,9 @@ const GardenItem = (props) => {
             Name: {title}
           </Typography>
           <br />
-          <Typography variant="h5">
-            Description: {description}
-          </Typography>
+          <Typography variant="h5">Description: {description}</Typography>
           <br />
-          <Typography variant="body1">
-            Notes: {notes}
-          </Typography>
+          <Typography variant="body1">Notes: {notes}</Typography>
           <br />
           <Typography variant="body1">
             Planting date: {plantingDateStr}
@@ -144,7 +163,7 @@ const GardenItem = (props) => {
             size="small"
             variant="contained"
             color="secondary"
-            onClick={handleDeleteItem}
+            onClick={showDeleteDialog}
           >
             Delete plant item
           </Button>
