@@ -11,10 +11,14 @@ import {
   Button
 } from '@material-ui/core'
 import firebase from 'firebase'
+import { Label } from '@material-ui/icons'
 
 const useStyles = makeStyles({
   textField: {
     maxWidth: 400
+  }, 
+  errortext: {
+    color: 'red'
   }
 })
 
@@ -29,36 +33,44 @@ const GardenItemForm = (props) => {
   const [newX, setNewX] = useState(props.x)
   const [newY, setNewY] = useState(props.y)
   const [newUid, setNewUid] = useState(props.uid)
+  const [formValid, setFormValid] = useState(false)
+  const [formErrors, setFormErrors] = useState(null)
 
   const db = firebase.firestore()
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
+    validateNameField(event.target.value)
   }
 
   const handleDescriptionChange = (event) => {
     console.log(event.target.value)
     setNewDescription(event.target.value)
+    validateDescriptionField(event.target.value)
   }
 
   const handleNotesChange = (event) => {
     console.log(event.target.value)
     setNewNotes(event.target.value)
+    validateNotesField(event.target.value)
   }
 
   const handlePlantingDateChange = (date) => {
     console.log(date)
     setNewPlantingDate(date)
+    validatePlantingDate(date)
   }
 
   const handleXChange = (event) => {
     console.log(event.target.value)
     setNewX(event.target.value)
+    validateXField(event.target.value)
   }
   const handleYChange = (event) => {
     console.log(event.target.value)
     setNewY(event.target.value)
+    validateYField(event.target.value)
   }
 
   const fetchDbItems = () => {
@@ -79,6 +91,68 @@ const GardenItemForm = (props) => {
       console.log(error)
     }
   }
+
+  const validateNameField = (value) => {
+    if (value === '' || value === undefined) {
+      setFormValid(false)
+      setFormErrors('Error: Name is a required field')
+    } else {
+      setFormValid(true)
+      setFormErrors('')
+    }
+  }
+
+  const validateDescriptionField = (value) => {
+    if (value === '' || value === undefined) {
+      setFormValid(false)
+      setFormErrors('Error: Description is a required field')
+    } else {
+      setFormValid(true)
+      setFormErrors('')
+    }
+  }
+
+  const validateNotesField = (value) => {
+    if (value === '' || value === undefined) {
+      setFormValid(false)
+      setFormErrors('Error: Notes is a required field')
+    } else {
+      setFormValid(true)
+      setFormErrors('')
+    }
+  }
+
+  const validatePlantingDate = (value) => {
+    if (value === '' || value === undefined) {
+      setFormValid(false)
+      setFormErrors('Error: Planting date is a required field')
+    } else {
+      setFormValid(true)
+      setFormErrors('')
+    }
+  }
+
+  const validateXField = (value) => {
+    if (value === '' || value === undefined || isNaN(value)) {
+      setFormValid(false)
+      setFormErrors('Error: value of X is invalid')
+    } else {
+      setFormValid(true)
+      setFormErrors('')
+    }
+  }
+
+  const validateYField = (value) => {
+    console.log(Number.isInteger(value))
+    if (value === '' || value === undefined || isNaN(value)) {
+      setFormValid(false)
+      setFormErrors('Error: value of Y is invalid')
+    } else {
+      setFormValid(true)
+      setFormErrors('')
+    }
+  }
+
 
   const handleItemSave = () => {
     console.log(
@@ -123,6 +197,7 @@ const GardenItemForm = (props) => {
       className={classes.dialog}
     >
       <DialogContent>
+        <div className={classes.errortext}>{formErrors}</div>
         <TextField
           autoFocus
           id="name"
@@ -180,6 +255,7 @@ const GardenItemForm = (props) => {
             variant="contained"
             color="secondary"
             onClick={handleItemSave}
+            disabled={!formValid}
           >
             Save changes
           </Button>
