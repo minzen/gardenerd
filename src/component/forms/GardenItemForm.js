@@ -23,6 +23,13 @@ const useStyles = makeStyles({
 
 const GardenItemForm = (props) => {
   const classes = useStyles()
+  const nameInvalid = 'Error: Name is a required field'
+  const descriptionInvalid = 'Error: Description is a required field'
+  const notesInvalid = 'Error: Notes is a required field'
+  const plantingDateInvalid = 'Error: Planting date is a required field'
+  const xInvalid = 'Error: value of X is invalid'
+  const yInvalid = 'Error: value of Y is invalid'
+  
   const [newName, setNewName] = useState(props.name)
   const [newDescription, setNewDescription] = useState(props.description)
   const [newNotes, setNewNotes] = useState(props.notes)
@@ -93,98 +100,89 @@ const GardenItemForm = (props) => {
 
   const validateForm = () => {
     if (!validateNameField(newName)) {
-      setFormValid(false)
-      setFormErrors('Error: Name is a required field')
+      setFormInvalidAndSetError(nameInvalid)
       return false
     } else if (!validateDescriptionField(newDescription)) {
-      setFormValid(false)
-      setFormErrors('Error: Description is a required field')
+      setFormInvalidAndSetError(descriptionInvalid)
       return false
     } else if (!validateNotesField(newNotes)) {
-      setFormValid(false)
-      setFormErrors('Error: Notes is a required field')
+      setFormInvalidAndSetError(notesInvalid)
       return false
     } else if (!validatePlantingDate(newPlantingDate)) {
-      setFormValid(false)
-      setFormErrors('Error: Planting date is a required field')
+      setFormInvalidAndSetError(plantingDateInvalid)
       return false
     } else if (!validateXField(newX)) {
-      setFormValid(false)
-      setFormErrors('Error: value of X is invalid')
+      setFormInvalidAndSetError(xInvalid)
       return false
     } else if (!validateYField(newY)) {
-      setFormValid(false)
-      setFormErrors('Error: value of Y is invalid')
+      setFormInvalidAndSetError(yInvalid)
       return false
     }
-    setFormValid(true)
-    setFormValid('')
+    setFormValidAndClearErrors()
     return true
+  }
+
+  const setFormInvalidAndSetError = (errorMsg) => {
+    setFormValid(false)
+    setFormErrors(errorMsg)
+  }
+
+  const setFormValidAndClearErrors = () => {
+    setFormValid(true)
+    setFormErrors('')
   }
 
   const validateNameField = (value) => {
     if (value === '' || value === undefined) {
-      setFormValid(false)
-      setFormErrors('Error: Name is a required field')
+      setFormInvalidAndSetError(nameInvalid)
       return false
-    } 
-    setFormValid(true)
-    setFormErrors('')
+    }
+    setFormValidAndClearErrors()
     return true
   }
 
   const validateDescriptionField = (value) => {
     if (value === '' || value === undefined) {
-      setFormValid(false)
-      setFormErrors('Error: Description is a required field')
+      setFormInvalidAndSetError(descriptionInvalid)
       return false
     }
-    setFormValid(true)
-    setFormErrors('')
+    setFormValidAndClearErrors()
     return true
   }
 
   const validateNotesField = (value) => {
     if (value === '' || value === undefined) {
-      setFormValid(false)
-      setFormErrors('Error: Notes is a required field')
+      setFormInvalidAndSetError(notesInvalid)
       return false
     }
-    setFormValid(true)
-    setFormErrors('')
+    setFormValidAndClearErrors()
     return true
   }
 
   const validatePlantingDate = (value) => {
     if (value === '' || value === undefined) {
-      setFormValid(false)
-      setFormErrors('Error: Planting date is a required field')
+      setFormInvalidAndSetError(plantingDateInvalid)
       return false
     }
-    setFormValid(true)
-    setFormErrors('')
+    setFormValidAndClearErrors()
     return true
   }
 
   const validateXField = (value) => {
     if (value === '' || value === undefined || isNaN(value)) {
-      setFormValid(false)
-      setFormErrors('Error: value of X is invalid')
+      setFormInvalidAndSetError(xInvalid)
       return false
     }
-    setFormValid(true)
-    setFormErrors('')
+    setFormValidAndClearErrors()
     return true
   }
 
   const validateYField = (value) => {
     if (value === '' || value === undefined || isNaN(value)) {
-      setFormValid(false)
-      setFormErrors('Error: value of Y is invalid')
+      setFormInvalidAndSetError(yInvalid)
       return false
     }
-    setFormValid(true)
-    setFormErrors('')
+    setFormValidAndClearErrors()
     return true
   }
 
