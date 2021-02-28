@@ -20,21 +20,16 @@ const App = () => {
   console.log(token)
   const db = firebase.firestore()
 
-  useEffect(async () => {
-    try {
-      db.collection('gardenitem').get().then((gardenItemList) => {
-        let items = []
-        if (gardenItemList !== null && gardenItemList.docs !== null) {
-          gardenItemList.docs.map((doc) => {
-            console.log("id: " + doc.id)
-            items.push(doc.data())
-          })
-          setGardenItems(items)
-        }
+  useEffect(() => {
+    async function fetchData() {
+      let items = []
+      const gardenItemList = await db.collection('gardenitem').get()
+      await gardenItemList.docs.map((doc) => {
+        items.push(doc.data())
       })
-    } catch (error) {
-      console.log(error)
+      setGardenItems(items)
     }
+    fetchData()
   }, [])
 
   return (

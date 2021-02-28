@@ -11,12 +11,11 @@ import {
   Button
 } from '@material-ui/core'
 import firebase from 'firebase'
-import { Label } from '@material-ui/icons'
 
 const useStyles = makeStyles({
   textField: {
     maxWidth: 400
-  }, 
+  },
   errortext: {
     color: 'red'
   }
@@ -92,99 +91,134 @@ const GardenItemForm = (props) => {
     }
   }
 
+  const validateForm = () => {
+    if (!validateNameField(newName)) {
+      setFormValid(false)
+      setFormErrors('Error: Name is a required field')
+      return false
+    } else if (!validateDescriptionField(newDescription)) {
+      setFormValid(false)
+      setFormErrors('Error: Description is a required field')
+      return false
+    } else if (!validateNotesField(newNotes)) {
+      setFormValid(false)
+      setFormErrors('Error: Notes is a required field')
+      return false
+    } else if (!validatePlantingDate(newPlantingDate)) {
+      setFormValid(false)
+      setFormErrors('Error: Planting date is a required field')
+      return false
+    } else if (!validateXField(newX)) {
+      setFormValid(false)
+      setFormErrors('Error: value of X is invalid')
+      return false
+    } else if (!validateYField(newY)) {
+      setFormValid(false)
+      setFormErrors('Error: value of Y is invalid')
+      return false
+    }
+    setFormValid(true)
+    setFormValid('')
+    return true
+  }
+
   const validateNameField = (value) => {
     if (value === '' || value === undefined) {
       setFormValid(false)
       setFormErrors('Error: Name is a required field')
-    } else {
-      setFormValid(true)
-      setFormErrors('')
-    }
+      return false
+    } 
+    setFormValid(true)
+    setFormErrors('')
+    return true
   }
 
   const validateDescriptionField = (value) => {
     if (value === '' || value === undefined) {
       setFormValid(false)
       setFormErrors('Error: Description is a required field')
-    } else {
-      setFormValid(true)
-      setFormErrors('')
+      return false
     }
+    setFormValid(true)
+    setFormErrors('')
+    return true
   }
 
   const validateNotesField = (value) => {
     if (value === '' || value === undefined) {
       setFormValid(false)
       setFormErrors('Error: Notes is a required field')
-    } else {
-      setFormValid(true)
-      setFormErrors('')
+      return false
     }
+    setFormValid(true)
+    setFormErrors('')
+    return true
   }
 
   const validatePlantingDate = (value) => {
     if (value === '' || value === undefined) {
       setFormValid(false)
       setFormErrors('Error: Planting date is a required field')
-    } else {
-      setFormValid(true)
-      setFormErrors('')
+      return false
     }
+    setFormValid(true)
+    setFormErrors('')
+    return true
   }
 
   const validateXField = (value) => {
-    if (value === '' || value === undefined || isNaN(value)) {
+    if (value === '' || value === undefined || isNaN(value)) {
       setFormValid(false)
       setFormErrors('Error: value of X is invalid')
-    } else {
-      setFormValid(true)
-      setFormErrors('')
+      return false
     }
+    setFormValid(true)
+    setFormErrors('')
+    return true
   }
 
   const validateYField = (value) => {
-    console.log(Number.isInteger(value))
-    if (value === '' || value === undefined || isNaN(value)) {
+    if (value === '' || value === undefined || isNaN(value)) {
       setFormValid(false)
       setFormErrors('Error: value of Y is invalid')
-    } else {
-      setFormValid(true)
-      setFormErrors('')
+      return false
     }
+    setFormValid(true)
+    setFormErrors('')
+    return true
   }
 
-
   const handleItemSave = () => {
-    console.log(
-      'saving form values',
-      newName,
-      newDescription,
-      newPlantingDate,
-      newNotes,
-      newX,
-      newY,
-      newUid
-    )
-    // TODO: validation
-    //
-    let plantToSaveKey = props.uid
-    // If there's an existing entry, use it to not save a new one
-    console.log('plantToSaveKey', plantToSaveKey)
-    if (props.uid === undefined) {
-      plantToSaveKey = firebase.database().ref().child('gardenitem').push().key
+    
+    if (validateForm()) {
+      console.log(
+        'saving form values',
+        newName,
+        newDescription,
+        newPlantingDate,
+        newNotes,
+        newX,
+        newY,
+        newUid
+      )
+  
+      let plantToSaveKey = props.uid
+      if (props.uid === undefined) {
+        plantToSaveKey = firebase.database().ref().child('gardenitem').push().key
+      }
+      const savedItem = db.collection('gardenitem').doc(plantToSaveKey).set({
+        plantName: newName,
+        plantDescription: newDescription,
+        plantingDate: newPlantingDate,
+        notes: newNotes,
+        locationX: newX,
+        locationY: newY,
+        uid: plantToSaveKey
+      })
+      console.log('Saved', savedItem, plantToSaveKey)
+      fetchDbItems()
+      props.closeEditForm()  
     }
-    const savedItem = db.collection('gardenitem').doc(plantToSaveKey).set({
-      plantName: newName,
-      plantDescription: newDescription,
-      plantingDate: newPlantingDate,
-      notes: newNotes,
-      locationX: newX,
-      locationY: newY,
-      uid: plantToSaveKey
-    })
-    console.log('Saved', savedItem, plantToSaveKey)
-    fetchDbItems()
-    props.closeEditForm()
   }
 
   return (
