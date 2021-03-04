@@ -9,6 +9,7 @@ import Info from './component/Info'
 import SignIn from './component/Signin'
 import SignUp from './component/Signup'
 import Logout from './component/Logout'
+import ListItems from './component/ListItems'
 import PasswordForgotten from './component/PasswordForgotten'
 import firebase from 'firebase'
 
@@ -59,6 +60,17 @@ const App = () => {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/resetpassword" component={PasswordForgotten} />
+          <Route
+            exact
+            path="/listitems"
+            render={(rProps) =>
+              token === null ? (
+                <SignIn />
+              ) : (
+                <ListItems gardenItems={gardenItems} />
+              )
+            }
+          />
         </Switch>
       </div>
     </Router>

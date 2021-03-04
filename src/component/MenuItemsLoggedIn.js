@@ -74,6 +74,11 @@ const MenuItemsLoggedIn = () => {
               Logout
             </Link>
           </Grid>
+          <Grid item>
+            <Link to="/listitems" className={classes.menuItem}>
+              List items
+            </Link>
+          </Grid>
         </Grid>
       </nav>
     </Container>
