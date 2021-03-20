@@ -8,6 +8,7 @@ import MenuItemsLoggedIn from './MenuItemsLoggedIn'
 import GardenItemForm from './forms/GardenItemForm'
 import moment from 'moment'
 import firebase from 'firebase'
+import DownloadData from './DownloadData'
 
 const useStyles = makeStyles({
   body: {
@@ -117,6 +118,7 @@ const GardenView = (props) => {
           />
         ))}
         {editForm()}
+        <DownloadData data={ props.gardenItems }/>
         <Grid item xs={12}>
           <Copyright />
         </Grid>
