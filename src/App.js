@@ -16,7 +16,7 @@ const App = () => {
   const [gardenItems, setGardenItems] = useState([])
   const { handleSignup } = useContext(authContext)
   console.log(handleSignup)
-  const { token } = useContext(authContext)
+  const token = localStorage.getItem('token')
   console.log(token)
   const db = firebase.firestore()
 
