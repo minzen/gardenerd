@@ -135,18 +135,13 @@ const GardenItem = (props) => {
             color="textSecondary"
             gutterBottom
           >
-            Name: {title}
+            <Typography variant="h5">Name: {title}</Typography>
           </Typography>
           <br />
-          <Typography variant="h5">Description: {description}</Typography>
-          <br />
-          <Typography variant="body1">Notes: {notes}</Typography>
-          <br />
-          <Typography variant="body1">
-            Planting date: {plantingDateStr}
-          </Typography>
-          <br />
-          <Typography variant="body1">
+          <Typography variant="body1">Description: {description}</Typography>
+          <Typography variant="body2">
+            Notes: {notes}
+            Planting date: {plantingDateStr}<br/>
             Location in x,y: [{x},{y}]
           </Typography>
         </CardContent>
