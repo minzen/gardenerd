@@ -201,7 +201,8 @@ const GardenItemForm = (props) => {
       )
   
       let plantToSaveKey = props.uid
-      if (props.uid === undefined) {
+      console.log("plantToSaveKey", plantToSaveKey)
+      if (plantToSaveKey === undefined) {
         plantToSaveKey = firebase.database().ref().child('gardenitem').push().key
       }
       const savedItem = db.collection('gardenitem').doc(plantToSaveKey).set({

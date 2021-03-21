@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)'
   },
   title: {
-    fontSize: 14
+    fontSize: 18
   },
   pos: {
     marginBottom: 12
@@ -39,6 +39,7 @@ const GardenItem = (props) => {
   const [y, setY] = useState(props.y)
   const [editFormVisible, setEditFormVisible] = useState(false)
   const [deleteItemDialogVisible, setDeleteItemDialogVisible] = useState(false)
+  const [uid, setUid] = useState(props.uid)
   const db = firebase.firestore()
   const plantingDateStr =
     plantingDate !== null ? plantingDate.toDate().toDateString() : ''
@@ -114,6 +115,7 @@ const GardenItem = (props) => {
           setEditFormVisible={setEditFormVisible}
           closeEditForm={closeEditForm}
           setGardenItems={props.setGardenItems}
+          uid={uid}
         />
       )
     }
@@ -130,18 +132,15 @@ const GardenItem = (props) => {
       />
       <Card className={classes.root} variant="outlined">
         <CardContent>
-          <Typography
-            className={classes.title}
+          <Typography variant="h3" className={classes.title}
             color="textSecondary"
             gutterBottom
-          >
-            <Typography variant="h5">Name: {title}</Typography>
-          </Typography>
+          >Name: {title}</Typography>
           <br />
           <Typography variant="body1">Description: {description}</Typography>
           <Typography variant="body2">
-            Notes: {notes}
-            Planting date: {plantingDateStr}<br/>
+            Notes: {notes}<br />
+            Planting date: {plantingDateStr}<br />
             Location in x,y: [{x},{y}]
           </Typography>
         </CardContent>
