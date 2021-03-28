@@ -7,11 +7,10 @@ import AuthProvider from './provider/AuthProvider'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import palette from './palette'
 
 const theme = createMuiTheme({
-  palette: {
-    type: 'dark'
-  }
+  palette
 })
 
 ReactDOM.render(

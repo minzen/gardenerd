@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { authContext } from './provider/AuthProvider'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import './App.css'
 import GardenView from './component/GardenView'
 import Header from './component/Header'
 import User from './component/User'
@@ -11,6 +10,7 @@ import SignUp from './component/Signup'
 import Logout from './component/Logout'
 import PasswordForgotten from './component/PasswordForgotten'
 import firebase from 'firebase'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
 const App = () => {
   const [gardenItems, setGardenItems] = useState([])

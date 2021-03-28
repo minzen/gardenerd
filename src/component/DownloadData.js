@@ -5,10 +5,8 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles({
     downloadBox: {
         padding: 10,
-        backgroundColor: '#959494'
     },
     downloadText: {
-        color: '#000000',
         padding: 5
     }
 })

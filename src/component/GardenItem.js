@@ -10,10 +10,13 @@ import { makeStyles } from '@material-ui/core/styles'
 import GardenItemForm from './forms/GardenItemForm'
 import firebase from 'firebase'
 import AlertDialog from './AlertDialog'
+import palette from '../palette'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    minWidth: 275
+    minWidth: 275,
+    marginBottom: 15,
+    backgroundColor: palette.primary.light
   },
   bullet: {
     display: 'inline-block',
@@ -21,12 +24,13 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)'
   },
   title: {
-    fontSize: 18
+    fontSize: 18,
+    fontWeight: 'bolder'
   },
   pos: {
     marginBottom: 12
   }
-})
+}))
 
 const GardenItem = (props) => {
   console.log(props)

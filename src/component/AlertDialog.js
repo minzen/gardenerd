@@ -27,10 +27,10 @@ const AlertDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.closeDeleteDialog} color="primary">
+          <Button onClick={props.closeDeleteDialog} color="secondary" variant="contained">
             Cancel
           </Button>
-          <Button onClick={confirm} color="primary" autoFocus>
+          <Button onClick={confirm} color="primary" variant="contained" autoFocus>
             Confirm
           </Button>
         </DialogActions>
