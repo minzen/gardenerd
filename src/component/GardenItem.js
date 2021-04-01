@@ -12,7 +12,7 @@ import firebase from 'firebase'
 import AlertDialog from './AlertDialog'
 import palette from '../palette'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     minWidth: 275,
     marginBottom: 15,
