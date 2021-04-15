@@ -1,5 +1,3 @@
-import { colors } from '@material-ui/core'
-
 export default {
     primary: {
         dark: '#287d9b',

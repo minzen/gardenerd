@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 
 const DownloadData = (props) => {
 
-    const [gardenItems, setGardenItems] = useState(props.data)
+    const gardenItems = useState(props.data)
     const classes = useStyles()
 
     const handleDownload = () => {

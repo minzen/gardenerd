@@ -10,7 +10,6 @@ import SignUp from './component/Signup'
 import Logout from './component/Logout'
 import PasswordForgotten from './component/PasswordForgotten'
 import firebase from 'firebase'
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
 const App = () => {
   const [gardenItems, setGardenItems] = useState([])
@@ -26,11 +25,12 @@ const App = () => {
       const gardenItemList = await db.collection('gardenitem').get()
       await gardenItemList.docs.map((doc) => {
         items.push(doc.data())
+        return items
       })
       setGardenItems(items)
     }
     fetchData()
-  }, [])
+  }, [db])
 
   return (
     <Router>

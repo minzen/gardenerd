@@ -43,7 +43,7 @@ const GardenItem = (props) => {
   const [y, setY] = useState(props.y)
   const [editFormVisible, setEditFormVisible] = useState(false)
   const [deleteItemDialogVisible, setDeleteItemDialogVisible] = useState(false)
-  const [uid, setUid] = useState(props.uid)
+  const uid = useState(props.uid)
   const db = firebase.firestore()
   const plantingDateStr =
     plantingDate !== null ? plantingDate.toDate().toDateString() : ''
@@ -85,6 +85,7 @@ const GardenItem = (props) => {
             gardenItemList.docs.map((doc) => {
               console.log('id: ' + doc.id)
               items.push(doc.data())
+              return items
             })
             props.setGardenItems(items)
           }

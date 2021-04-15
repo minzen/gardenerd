@@ -7,7 +7,6 @@ import Copyright from './Copyright'
 import MenuItemsLoggedIn from './MenuItemsLoggedIn'
 import GardenItemForm from './forms/GardenItemForm'
 import moment from 'moment'
-import firebase from 'firebase'
 import DownloadData from './DownloadData'
 
 const useStyles = makeStyles({
@@ -35,12 +34,11 @@ const GardenView = (props) => {
   const [editFormVisible, setEditFormVisible] = useState(false)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState(props.description)
+   // eslint-disable-next-line 
   const [plantingDate, setPlantingDate] = useState(props.plantingDate)
   const [notes, setNotes] = useState(props.notes)
   const [x, setX] = useState(props.x)
   const [y, setY] = useState(props.y)
-  const db = firebase.firestore()
-
 
   const handleClick = () => {
     console.log('Fab clicked')
