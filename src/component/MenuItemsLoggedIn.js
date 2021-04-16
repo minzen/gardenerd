@@ -6,33 +6,30 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlined'
 import { Link } from 'react-router-dom'
+import palette from '../palette'
 
 const useStyles = makeStyles({
   menuBar: {
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingTop: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
     paddingBottom: 10,
-    backgroundColor: '#424242',
-    borderStyle: 'solid',
-    borderColor: 'lightGrey',
     borderBottomWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
-    borderRightWidth: 0
+    borderRightWidth: 0,
+    backgroundColor: palette.primary.main
   },
   menuItemWithPadding: {
-    color: '#F7F7F7',
     paddingLeft: 10,
     textDecoration: 'none'
   },
   menuItem: {
-    color: '#F7F7F7',
     textDecoration: 'none'
   },
   menuItemStatus: {
     marginLeft: 10,
     textDecoration: 'underline',
-    color: '#F7F7F7'
   }
 })
 

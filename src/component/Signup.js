@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const SignUp = (props) => {
-  const { handleSignup, inputs, setInputs, errors } = useContext(authContext)
+  const { handleSignup, inputs, setInputs } = useContext(authContext)
   const classes = useStyles()
   const [accountCreatedDialogOpen, setAccountCreatedDialogOpen] = useState(
     false

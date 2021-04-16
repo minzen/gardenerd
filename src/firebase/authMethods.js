@@ -1,3 +1,4 @@
+ // eslint-disable-next-line 
 import firebaseConfig from './index'
 import firebase from 'firebase'
 

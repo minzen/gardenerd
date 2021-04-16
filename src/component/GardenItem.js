@@ -10,10 +10,13 @@ import { makeStyles } from '@material-ui/core/styles'
 import GardenItemForm from './forms/GardenItemForm'
 import firebase from 'firebase'
 import AlertDialog from './AlertDialog'
+import palette from '../palette'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   root: {
-    minWidth: 275
+    minWidth: 275,
+    marginBottom: 15,
+    backgroundColor: palette.primary.light
   },
   bullet: {
     display: 'inline-block',
@@ -21,12 +24,13 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)'
   },
   title: {
-    fontSize: 14
+    fontSize: 18,
+    fontWeight: 'bolder'
   },
   pos: {
     marginBottom: 12
   }
-})
+}))
 
 const GardenItem = (props) => {
   console.log(props)
@@ -39,6 +43,7 @@ const GardenItem = (props) => {
   const [y, setY] = useState(props.y)
   const [editFormVisible, setEditFormVisible] = useState(false)
   const [deleteItemDialogVisible, setDeleteItemDialogVisible] = useState(false)
+  const uid = useState(props.uid)
   const db = firebase.firestore()
   const plantingDateStr =
     plantingDate !== null ? plantingDate.toDate().toDateString() : ''
@@ -80,6 +85,7 @@ const GardenItem = (props) => {
             gardenItemList.docs.map((doc) => {
               console.log('id: ' + doc.id)
               items.push(doc.data())
+              return items
             })
             props.setGardenItems(items)
           }
@@ -114,6 +120,7 @@ const GardenItem = (props) => {
           setEditFormVisible={setEditFormVisible}
           closeEditForm={closeEditForm}
           setGardenItems={props.setGardenItems}
+          uid={uid}
         />
       )
     }
@@ -130,23 +137,15 @@ const GardenItem = (props) => {
       />
       <Card className={classes.root} variant="outlined">
         <CardContent>
-          <Typography
-            className={classes.title}
+          <Typography variant="h3" className={classes.title}
             color="textSecondary"
             gutterBottom
-          >
-            Name: {title}
-          </Typography>
+          >Name: {title}</Typography>
           <br />
-          <Typography variant="h5">Description: {description}</Typography>
-          <br />
-          <Typography variant="body1">Notes: {notes}</Typography>
-          <br />
-          <Typography variant="body1">
-            Planting date: {plantingDateStr}
-          </Typography>
-          <br />
-          <Typography variant="body1">
+          <Typography variant="body1">Description: {description}</Typography>
+          <Typography variant="body2">
+            Notes: {notes}<br />
+            Planting date: {plantingDateStr}<br />
             Location in x,y: [{x},{y}]
           </Typography>
         </CardContent>

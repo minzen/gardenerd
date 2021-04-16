@@ -2,12 +2,13 @@ import React from 'react'
 import { Container, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Logo from '../assets/img/gardenerd_logo_200x200.png'
+import palette from '../palette'
 
 const useStyles = makeStyles({
   headerSection: {
-    backgroundColor: '#424242',
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    backgroundColor: palette.primary.dark
   }
 })
 

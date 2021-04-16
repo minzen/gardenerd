@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { authContext } from './provider/AuthProvider'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import './App.css'
 import GardenView from './component/GardenView'
 import Header from './component/Header'
 import User from './component/User'
@@ -17,7 +16,7 @@ const App = () => {
   const [gardenItems, setGardenItems] = useState([])
   const { handleSignup } = useContext(authContext)
   console.log(handleSignup)
-  const { token } = useContext(authContext)
+  const token = localStorage.getItem('token')
   console.log(token)
   const db = firebase.firestore()
 
@@ -27,11 +26,12 @@ const App = () => {
       const gardenItemList = await db.collection('gardenitem').get()
       await gardenItemList.docs.map((doc) => {
         items.push(doc.data())
+        return items
       })
       setGardenItems(items)
     }
     fetchData()
-  }, [])
+  }, [db])
 
   return (
     <Router>

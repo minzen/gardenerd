@@ -38,7 +38,7 @@ const GardenItemForm = (props) => {
   )
   const [newX, setNewX] = useState(props.x)
   const [newY, setNewY] = useState(props.y)
-  const [newUid, setNewUid] = useState(props.uid)
+  const newUid = useState(props.uid)
   const [formValid, setFormValid] = useState(false)
   const [formErrors, setFormErrors] = useState(null)
 
@@ -89,6 +89,7 @@ const GardenItemForm = (props) => {
             gardenItemList.docs.map((doc) => {
               console.log('id: ' + doc.id)
               items.push(doc.data())
+              return items
             })
             props.setGardenItems(items)
           }
@@ -201,7 +202,8 @@ const GardenItemForm = (props) => {
       )
   
       let plantToSaveKey = props.uid
-      if (props.uid === undefined) {
+      console.log("plantToSaveKey", plantToSaveKey)
+      if (plantToSaveKey === undefined) {
         plantToSaveKey = firebase.database().ref().child('gardenitem').push().key
       }
       const savedItem = db.collection('gardenitem').doc(plantToSaveKey).set({
